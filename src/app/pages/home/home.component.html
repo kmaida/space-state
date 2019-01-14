@@ -1,3 +1,5 @@
-<p>
-  home works!
-</p>
+<div *ngIf="data.neo$ | async as neos">
+  <ul>
+    <li *ngFor="let neo of neos">{{ neo | json }}</li>
+  </ul>
+</div>
