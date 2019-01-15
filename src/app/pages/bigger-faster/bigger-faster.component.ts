@@ -17,10 +17,7 @@ export class BiggerFasterComponent implements OnInit {
         return neo;
       }
     })),
-    tap(bigFastNeoList => {
-      this.loading = false;
-      console.log(bigFastNeoList);
-    })
+    tap(bigFastNeoList => this.loading = false)
   );
   error$ = this.data.errors$.pipe(
     tap(msg => this.loading = false)

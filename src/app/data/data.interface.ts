@@ -1,14 +1,3 @@
-interface IAPOD {
-  copyright?: string;
-  date: string;
-  explanation: string;
-  hdurl: string;
-  media_type: string;
-  service_version: string;
-  title: string;
-  url: string;
-}
-
 interface INEOAPI {
   links?: { [key: string]: any };
   element_count?: number;
@@ -25,4 +14,9 @@ interface INEO {
   nickname?: string;
 }
 
-export { IAPOD, INEOAPI, INEO };
+interface INEONICKNAME {
+  id: string;
+  nickname: string;
+}
+
+export { INEOAPI, INEO, INEONICKNAME };

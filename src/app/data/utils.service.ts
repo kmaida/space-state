@@ -58,7 +58,6 @@ export class UtilsService {
         neoSimple.miss_distance = neo[key][0].miss_distance.miles * 1;
       }
     });
-    console.log(neoSimple);
     return Object.assign({}, neoSimple);
   }
 

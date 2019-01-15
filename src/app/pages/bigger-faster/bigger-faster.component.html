@@ -1,5 +1,6 @@
 <h1 class="text-center my-4">Bigger, Faster Near Earth Objects on {{ utils.getNEODate | date:'mediumDate' }}</h1>
-<p class="lead text-center">Near Earth Objects "bigger" than half a mile across <em>or</em> "faster" than 50,000 miles per hour.</p>
+<p class="lead text-center">Near Earth Objects with an estimated diameter over half a mile <em>or</em><br>
+  with a relative velocity of more than 50,000 miles per hour.</p>
 
 <ng-template #noNEO>
   <app-loading *ngIf="loading"></app-loading>
