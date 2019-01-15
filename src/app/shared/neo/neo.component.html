@@ -1,28 +1,11 @@
 <div class="card my-3" id="{{ neo.id }}">
   <div class="card-body">
     <h5 class="card-title">{{ neo.name }}</h5>
-    <h6 *ngIf="neo.nickname else addNickname" class="card-title">
+    <h6 *ngIf="neo.nickname else addNickname" class="card-title mb-2">
       <em>"{{ neo.nickname }}"</em>
     </h6>
     <ng-template #addNickname>
-      <form #formNickname="ngForm" (ngSubmit)="onSubmit(neoForm)" class="form-inline">
-        <div class="form-group">
-          <input
-            id="nickname-{{ neo.id }}"
-            name="nickname"
-            type="text"
-            [(ngModel)]="neoForm.nickname"
-            class="input-nickname form-control mr-sm-2 mb-2"
-            placeholder="Nickname"
-            maxlength="100"
-            minlength="2"
-            required>
-          <button
-            type="submit"
-            class="btn btn-nickname mb-2"
-            [disabled]="!formNickname.valid">Save</button>
-        </div>
-      </form>
+      <app-neo-form [neo]="neo" (submitNickname)="onSubmitNickname($event)"></app-neo-form>
     </ng-template>
     <ul class="list-unstyled">
       <li>

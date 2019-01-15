@@ -2,6 +2,20 @@ html, body {
   background: #0a2436;
   color:#e8ebee;
 }
+.nav-link {
+  color: #00c0fb;
+  font-size: .85rem;
+  text-transform: uppercase;
+  transition: color 300ms ease;
+}
+.nav-link:hover {
+  color: #fff !important;
+  transition: color 300ms ease;
+}
+.nav-link.active {
+  color: #c8f2ff;
+  font-weight: bold;
+}
 .card {
   background: #00648a;
   border: 1px solid #00c0fb;
@@ -11,6 +25,9 @@ h1 {
 }
 h2, h3, h4, h5, h6, .card-body strong {
   color: #fff;
+}
+h6.card-title {
+  line-height: 38px;
 }
 .alert {
   padding: .5rem .75rem;
@@ -32,9 +49,15 @@ h2, h3, h4, h5, h6, .card-body strong {
   font-size: .85rem;
   padding: .5rem;
 }
+.btn-nickname:disabled {
+  color: inherit;
+}
 .btn-nickname:hover {
-  color: #70ddff;
+  color: #c8f2ff;
 }
 .input-nickname {
   border-color: rgba(10,36,54,.5);
+}
+::placeholder {
+  color: rgba(0,192,251,.6) !important;
 }

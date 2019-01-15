@@ -1,3 +1,20 @@
 <div class="container">
+  <nav class="nav justify-content-between mt-2 mx-2 mb-3">
+    <ul class="nav">
+      <li class="nav-item">
+        <a
+          routerLink="/"
+          class="nav-link"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      </li>
+      <li class="nav-item">
+        <a
+          routerLink="/bigger-faster"
+          class="nav-link"
+          routerLinkActive="active">Bigger, Faster NEO</a>
+      </li>
+    </ul>
+  </nav>
   <router-outlet></router-outlet>
 </div>

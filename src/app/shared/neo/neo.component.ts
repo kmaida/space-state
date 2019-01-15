@@ -2,11 +2,10 @@ import {
   Component,
   OnInit,
   Input,
-  Output,
-  ChangeDetectionStrategy,
-  EventEmitter
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { INEO, INEONICKNAME } from '../../data/data.interface';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-neo',
@@ -16,13 +15,10 @@ import { INEO, INEONICKNAME } from '../../data/data.interface';
 })
 export class NeoComponent implements OnInit {
   @Input() neo: INEO;
-  @Output() submitNickname = new EventEmitter<INEONICKNAME>();
-  neoForm: INEONICKNAME = { id: null, nickname: null };
 
-  constructor() { }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.neoForm.id = this.neo.id;
   }
 
   getHazardText(hazardous: boolean): string {
@@ -31,8 +27,8 @@ export class NeoComponent implements OnInit {
       'Call Ben Affleck, it might be ARMAGEDDON!';
   }
 
-  onSubmit(input: INEONICKNAME) {
-    this.submitNickname.emit(input);
+  onSubmitNickname(neoNickname: INEONICKNAME) {
+    this.data.updateNEO(neoNickname);
   }
 
 }
