@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NeoComponent } from './shared/neo/neo.component';
 import { LoadingComponent } from './shared/loading.component';
 import { ErrorComponent } from './shared/error.component';
+import { BiggerFasterComponent } from './pages/bigger-faster/bigger-faster.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,14 @@ import { ErrorComponent } from './shared/error.component';
     HomeComponent,
     NeoComponent,
     LoadingComponent,
-    ErrorComponent
+    ErrorComponent,
+    BiggerFasterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     DatePipe

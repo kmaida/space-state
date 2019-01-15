@@ -48,16 +48,17 @@ export class UtilsService {
       }
       if (key === 'estimated_diameter') {
         const estD = (neo[key].miles.estimated_diameter_min + neo[key].miles.estimated_diameter_max) / 2;
-        neoSimple.estimated_diameter = estD.toString();
+        neoSimple.estimated_diameter = estD;
       }
       if (key === 'is_potentially_hazardous_asteroid') {
         neoSimple.is_potentially_hazardous_asteroid = neo[key];
       }
       if (key === 'close_approach_data') {
-        neoSimple.relative_velocity = Math.round(1 * neo[key][0].relative_velocity.miles_per_hour).toString();
-        neoSimple.miss_distance = neo[key][0].miss_distance.miles;
+        neoSimple.relative_velocity = Math.round(1 * neo[key][0].relative_velocity.miles_per_hour);
+        neoSimple.miss_distance = neo[key][0].miss_distance.miles * 1;
       }
     });
+    console.log(neoSimple);
     return Object.assign({}, neoSimple);
   }
 

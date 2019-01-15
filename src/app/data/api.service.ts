@@ -11,9 +11,7 @@ import { UtilsService } from './utils.service';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiKey = environment.nasaApiKey;
-  // private apiAPODUrl = `https://api.nasa.gov/planetary/apod?api_key=${this.apiKey}`;
-  private apiNEOUrl = `https://api.nasa.gov/neo/rest/v1/feed?detailed=false&start_date=${this.utils.getNEODate}&end_date=${this.utils.getNEODate}&api_key=${this.apiKey}`;
+  private apiNEOUrl = `https://api.nasa.gov/neo/rest/v1/feed?detailed=false&start_date=${this.utils.getNEODate}&end_date=${this.utils.getNEODate}&api_key=${environment.nasaApiKey}`;
 
   constructor(
     private data: DataService,

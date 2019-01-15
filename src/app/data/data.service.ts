@@ -7,8 +7,8 @@ import { UtilsService } from './utils.service';
   providedIn: 'root'
 })
 export class DataService {
-  private lastState: INEO[] = null; // TODO: this should be used to replay previous state
-  private stateNEO$ = new BehaviorSubject<INEO[]>(null);
+  private lastState: INEO[] = null; // Used to undo state changes
+  private stateNEO$ = new BehaviorSubject<INEO[]>(this.lastState);
   private errorMsg$ = new BehaviorSubject<string>(null);
   neo$ = this.stateNEO$.asObservable();
   errors$ = this.errorMsg$.asObservable();
@@ -41,8 +41,10 @@ export class DataService {
     }
   }
 
-  stateError(errMsg: string) {
+  stateError(errMsg: string, undoStateChange?: boolean) {
     this.errorMsg$.next(errMsg);
-    this.stateNEO$.next(this.lastState);
+    if (undoStateChange) {
+      this.stateNEO$.next(this.lastState);
+    }
   }
 }

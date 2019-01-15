@@ -18,10 +18,10 @@ interface INEOAPI {
 interface INEO {
   id: string;
   name: string;
-  estimated_diameter: string;                   // average of min / max; miles
+  estimated_diameter: number;                   // average of min / max; miles
   is_potentially_hazardous_asteroid: boolean;
-  relative_velocity: string;                    // mph
-  miss_distance: string;                        // miles
+  relative_velocity: number;                    // mph
+  miss_distance: number;                        // miles
   nickname?: string;
 }
 
