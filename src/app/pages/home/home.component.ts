@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { INEO } from './../../data/data.interface';
-import { DataService } from 'src/app/data/data.service';
+import { DataService } from './../../data/data.service';
+import { UtilsService } from './../../data/utils.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +9,17 @@ import { DataService } from 'src/app/data/data.service';
   styles: []
 })
 export class HomeComponent implements OnInit {
+  loading = true;
+  neo$ = this.data.neo$.pipe(
+    tap(neoList => this.loading = false)
+  );
+  error$ = this.data.errors$.pipe(
+    tap(msg => this.loading = false)
+  );
 
   constructor(
-    public data: DataService
+    private data: DataService,
+    public utils: UtilsService
   ) { }
 
   ngOnInit() {

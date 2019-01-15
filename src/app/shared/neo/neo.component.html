@@ -1,0 +1,25 @@
+<div class="card my-3" id="{{ neo.id }}">
+  <div class="card-body">
+    <h5 class="card-title">{{ neo.name }}</h5>
+    <h6 *ngIf="neo.nickname" class="card-title">
+      <em>"{{ neo.nickname }}"</em>
+    </h6>
+    <ul class="list-unstyled">
+      <li>
+        <strong>Est. Diameter:</strong> {{ neo.estimated_diameter | number:'0.0-3' }} miles
+      </li>
+      <li>
+        <strong>Relative Velocity:</strong> {{ neo.relative_velocity | number:'0.0-0' }} mph
+      </li>
+      <li>
+        <strong>Miss Distance:</strong> {{ neo.miss_distance | number:'0.0-0' }} miles
+      </li>
+    </ul>
+    <div
+      class="alert mb-0"
+      [ngClass]="{
+        'alert-danger': neo.is_potentially_hazardous_asteroid,
+        'alert-success': !neo.is_potentially_hazardous_asteroid
+      }">{{ getHazardText(neo.is_potentially_hazardous_asteroid) }}</div>
+  </div>
+</div>

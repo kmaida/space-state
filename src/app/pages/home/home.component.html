@@ -1,5 +1,15 @@
-<div *ngIf="data.neo$ | async as neos">
-  <ul>
-    <li *ngFor="let neo of neos">{{ neo | json }}</li>
-  </ul>
+<h1 class="text-center my-4">Near Earth Objects on {{ utils.getNEODate | date:'mediumDate' }}</h1>
+
+<ng-template #noNEO>
+  <app-loading *ngIf="loading"></app-loading>
+</ng-template>
+
+<ng-container *ngIf="error$ | async as err">
+  <app-error [msg]="err"></app-error>
+</ng-container>
+
+<div *ngIf="neo$ | async as neos else noNEO" class="row mb-3">
+  <div *ngFor="let neo of neos" class="col-xs-12 col-sm-6 col-md-4">
+    <app-neo [neo]="neo"></app-neo>
+  </div>
 </div>

@@ -22,7 +22,7 @@ interface INEO {
   is_potentially_hazardous_asteroid: boolean;
   relative_velocity: string;                    // mph
   miss_distance: string;                        // miles
-  fav: boolean;
+  nickname?: string;
 }
 
 export { IAPOD, INEOAPI, INEO };

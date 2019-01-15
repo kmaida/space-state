@@ -7,8 +7,8 @@ import { UtilsService } from './utils.service';
   providedIn: 'root'
 })
 export class DataService {
-  private stateNEO: INEO[] = null;
-  private stateNEO$ = new BehaviorSubject<INEO[]>(this.stateNEO);
+  private lastState: INEO[] = null; // TODO: this should be used to replay previous state
+  private stateNEO$ = new BehaviorSubject<INEO[]>(null);
   private errorMsg$ = new BehaviorSubject<string>(null);
   neo$ = this.stateNEO$.asObservable();
   errors$ = this.errorMsg$.asObservable();
@@ -16,26 +16,33 @@ export class DataService {
   constructor(private utils: UtilsService) { }
 
   updateNEOList(neoList: INEO[]) {
-    this.stateNEO = [...neoList];
-    this.stateNEO$.next(this.stateNEO);
+    const newState = [...neoList];
+    this.stateNEO$.next(newState);
+    this.setPrevState(this.lastState, newState);
   }
 
-  updateNEO(neoObj: INEO) {
-    // Freeze the array so its objects cannot be mutated
-    const state = this.utils.freezeArray([...this.stateNEO]);
-    const index = state.findIndex(o => neoObj.name === o.name);
-    const newState = state.map((obj, i) => {
+  updateNEO(neobj: INEO) {
+    const currentState = this.utils.freezeArray([...this.lastState]);
+    const index = currentState.findIndex(o => neobj.name === o.name);
+    const newState = currentState.map((current, i) => {
       if (i === index) {
-        return Object.assign({}, obj, { favorite: true });
+        return Object.assign({}, current, neobj);
       }
-      return obj;
+      return current;
     });
-    this.stateNEO = newState;
-    this.stateNEO$.next(this.stateNEO);
+    this.stateNEO$.next(newState);
     this.errorMsg$.next(null);
+    this.setPrevState(this.lastState, newState);
   }
 
-  error(errMsg: string) {
+  private setPrevState(state: INEO[], newState: INEO[]) {
+    if (!state && newState) {
+      this.lastState = [...newState];
+    }
+  }
+
+  stateError(errMsg: string) {
     this.errorMsg$.next(errMsg);
+    this.stateNEO$.next(this.lastState);
   }
 }

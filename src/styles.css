@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  background: #0a2436;
+  color:#e8ebee;
+}
+.card {
+  background: #00648a;
+  border: 1px solid #00c0fb;
+}
+h1 {
+  color: #add2eb;
+}
+h2, h3, h4, h5, h6, .card-body strong {
+  color: #fff;
+}
+.alert {
+  padding: .5rem .75rem;
+}
+.alert-success {
+  background: #183618;
+  border-color: #00fb0c;
+  color: #b8ffc9;
+}
+.alert-danger {
+  background: #5d0505;
+  border-color: #f50000;
+  color: #ffc6c6;
+}

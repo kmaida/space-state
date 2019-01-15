@@ -25,16 +25,16 @@ export class ApiService {
     return this.http.get<INEOAPI>(this.apiNEOUrl).pipe(
       map(res => this.utils.mapNEOResponse(res)),
       tap(neoList => this.data.updateNEOList(neoList)),
-      catchError((err, caught) => this.onError(err, caught))
+      catchError(err => this.onError(err))
     );
   }
 
-  private onError(err: HttpErrorResponse | any, caught) {
-    let errorMsg = 'Error: unable to complete request.';
+  private onError(err: HttpErrorResponse | any) {
+    let errorMsg = 'Unable to complete request.';
     if (err instanceof HttpErrorResponse) {
       errorMsg = err.message;
     }
-    this.data.error(errorMsg);
+    this.data.stateError(errorMsg);
     return throwError(errorMsg);
   }
 }

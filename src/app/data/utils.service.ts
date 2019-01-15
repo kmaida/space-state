@@ -10,7 +10,7 @@ export class UtilsService {
   constructor(private datePipe: DatePipe) { }
 
   freezeArray(array: any[]) {
-    // Iterate through array and freeze all objects.
+    // Iterate through array and freeze + seal all objects.
     // Note: this is not a deep freeze, as our state data
     // currently does not require it.
     array.forEach(obj => {
@@ -20,43 +20,48 @@ export class UtilsService {
     return Object.freeze(array);
   }
 
+  // Utility to get today's date to query the NASA API
   get getNEODate(): string {
-    const today = new Date();
-    return this.datePipe.transform(today, 'yyyy-MM-dd');
+    // const today = new Date();
+    // return this.datePipe.transform(today, 'yyyy-MM-dd');
+    return '2019-05-01';
   }
 
+  // Map the near Earth object data into a simpler format
+  // (This function just does some data massaging)
   private mapNEObj(neo: { [key: string]: any } ): INEO {
-    const neoQuick: INEO = {
+    const neoSimple: INEO = {
       id: null,
       name: null,
       estimated_diameter: null,
       is_potentially_hazardous_asteroid: null,
       relative_velocity: null,
       miss_distance: null,
-      fav: false
+      nickname: ''
     };
     Object.keys(neo).forEach(key => {
       if (key === 'id') {
-        neoQuick.id = neo[key];
+        neoSimple.id = neo[key];
       }
       if (key === 'name') {
-        neoQuick.name = neo[key];
+        neoSimple.name = neo[key];
       }
       if (key === 'estimated_diameter') {
         const estD = (neo[key].miles.estimated_diameter_min + neo[key].miles.estimated_diameter_max) / 2;
-        neoQuick.estimated_diameter = estD.toString();
+        neoSimple.estimated_diameter = estD.toString();
       }
       if (key === 'is_potentially_hazardous_asteroid') {
-        neoQuick.is_potentially_hazardous_asteroid = neo[key];
+        neoSimple.is_potentially_hazardous_asteroid = neo[key];
       }
       if (key === 'close_approach_data') {
-        neoQuick.relative_velocity = neo[key][0].relative_velocity.miles_per_hour;
-        neoQuick.miss_distance = neo[key][0].miss_distance.miles;
+        neoSimple.relative_velocity = Math.round(1 * neo[key][0].relative_velocity.miles_per_hour).toString();
+        neoSimple.miss_distance = neo[key][0].miss_distance.miles;
       }
     });
-    return Object.assign({}, neoQuick);
+    return Object.assign({}, neoSimple);
   }
 
+  // Take API data and produce an array of simplified NEOs
   mapNEOResponse(res: INEOAPI): INEO[] {
     const neoList = res.near_earth_objects[this.getNEODate];
     return neoList.map(neo => this.mapNEObj(neo));
