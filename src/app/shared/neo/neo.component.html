@@ -5,7 +5,9 @@
       <em>"{{ neo.nickname }}"</em>
     </h6>
     <ng-template #addNickname>
-      <app-neo-form [neo]="neo" (submitNickname)="onSubmitNickname($event)"></app-neo-form>
+      <app-neo-form
+        [neo]="neo"
+        (submitNickname)="onSubmitNickname($event)"></app-neo-form>
     </ng-template>
     <ul class="list-unstyled">
       <li>

@@ -8,6 +8,7 @@ import { UtilsService } from './utils.service';
 })
 export class DataService {
   private state: INEO[] = null;
+  private prevState: INEO[] = this.state;
   private stateNEO$ = new BehaviorSubject<INEO[]>(this.state);
   private errorMsg$ = new BehaviorSubject<string>(null);
   neo$ = this.stateNEO$.asObservable();
@@ -16,11 +17,13 @@ export class DataService {
   constructor(private utils: UtilsService) { }
 
   updateNEOList(neoList: INEO[]) {
-    this.state = neoList;
-    this.stateNEO$.next([...this.state]);
+    this.prevState = this.state;
+    this.state = [...neoList];
+    this.stateNEO$.next(this.state);
   }
 
   updateNEO(neobj: INEO|INEONICKNAME) {
+    this.prevState = this.state;
     const currentState = this.utils.freezeArray([...this.state]);
     const index = currentState.findIndex(o => neobj.id === o.id);
     const newState = currentState.map((current, i) => {
@@ -34,10 +37,9 @@ export class DataService {
     this.errorMsg$.next(null);
   }
 
-  private setPrevState(state: INEO[], newState: INEO[]) {
-    if (!state && newState) {
-      this.state = [...newState];
-    }
+  private undoLastState() {
+    this.state = [...this.prevState];
+    this.stateNEO$.next(this.state);
   }
 
   stateError(errMsg: string, undoStateChange?: boolean) {
