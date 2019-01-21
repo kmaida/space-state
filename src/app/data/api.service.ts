@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, tap, catchError, delay } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { INEOAPI, INEO } from './data.model';
 import { DataService } from './data.service';
@@ -21,6 +21,7 @@ export class ApiService {
 
   getNEOToday$(): Observable<INEO[]> {
     return this.http.get<INEOAPI>(this.apiNEOUrl).pipe(
+      delay(4000),
       map(res => this.utils.mapNEOResponse(res)),
       tap(neoList => this.data.updateNEOList(neoList)),
       catchError(err => this.onError(err))
@@ -32,7 +33,7 @@ export class ApiService {
     if (err instanceof HttpErrorResponse) {
       errorMsg = err.message;
     }
-    this.data.stateError(errorMsg);
+    this.data.stateError(errorMsg, true);
     return throwError(errorMsg);
   }
 }

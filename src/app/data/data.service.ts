@@ -22,7 +22,7 @@ export class DataService {
     this.stateNEO$.next(this.state);
   }
 
-  updateNEO(neobj: INEO|INEONICKNAME) {
+  updateNickname(neobj: INEO|INEONICKNAME) {
     this.prevState = this.state;
     const currentState = this.utils.freezeArray([...this.state]);
     const index = currentState.findIndex(o => neobj.id === o.id);
@@ -38,7 +38,7 @@ export class DataService {
   }
 
   private undoLastState() {
-    this.state = [...this.prevState];
+    this.state = this.prevState;
     this.stateNEO$.next(this.state);
   }
 

@@ -11,7 +11,9 @@ import { tap } from 'rxjs/operators';
 export class HomeComponent implements OnInit {
   loading = true;
   neo$ = this.data.neo$.pipe(
-    tap(neoList => this.loading = false)
+    tap(neoList => {
+      this.loading = false;
+    })
   );
   error$ = this.data.errors$.pipe(
     tap(msg => this.loading = false)

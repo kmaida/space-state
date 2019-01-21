@@ -28,7 +28,7 @@ export class NeoComponent implements OnInit {
   }
 
   onSubmitNickname(neoNickname: INEONICKNAME) {
-    this.data.updateNEO(neoNickname);
+    this.data.updateNickname(neoNickname);
   }
 
 }
