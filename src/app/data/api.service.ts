@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
-import { INEOAPI, INEO } from './data.interface';
+import { INEOAPI, INEO } from './data.model';
 import { DataService } from './data.service';
 import { UtilsService } from './utils.service';
 

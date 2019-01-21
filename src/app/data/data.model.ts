@@ -14,9 +14,19 @@ interface INEO {
   nickname?: string;
 }
 
+const initialNEO: INEO = {
+  id: '',
+  name: '',
+  estimated_diameter: null,
+  is_potentially_hazardous_asteroid: null,
+  relative_velocity: null,
+  miss_distance: null,
+  nickname: ''
+};
+
 interface INEONICKNAME {
   id: string;
   nickname: string;
 }
 
-export { INEOAPI, INEO, INEONICKNAME };
+export { INEOAPI, INEO, initialNEO, INEONICKNAME };

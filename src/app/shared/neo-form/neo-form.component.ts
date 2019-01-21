@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
   EventEmitter
 } from '@angular/core';
-import { INEO, INEONICKNAME } from '../../data/data.interface';
+import { INEO, INEONICKNAME } from '../../data/data.model';
 
 @Component({
   selector: 'app-neo-form',

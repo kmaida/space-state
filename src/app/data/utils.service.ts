@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { INEO, INEOAPI } from './data.interface';
-import { DatePipe } from '@angular/common';
+import { INEO, INEOAPI, initialNEO } from './data.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor(private datePipe: DatePipe) { }
+  constructor() { }
 
   freezeArray(array: any[]) {
-    // Iterate through array and freeze + seal all objects.
+    // Iterate through array and freeze + seal objects.
     // Note: this is not a deep freeze, as our state data
-    // currently does not require it.
+    // currently does not require that.
     array.forEach(obj => {
       Object.freeze(obj);
       Object.seal(obj);
@@ -20,7 +19,7 @@ export class UtilsService {
     return Object.freeze(array);
   }
 
-  // Utility to get today's date to query the NASA API
+  // Utility to get date to query the NASA API
   get getNEODate(): string {
     // const today = new Date();
     // return this.datePipe.transform(today, 'yyyy-MM-dd');
@@ -28,42 +27,34 @@ export class UtilsService {
   }
 
   // Map the near Earth object data into a simpler format
-  // (This function just does some data massaging)
-  private mapNEObj(neo: { [key: string]: any } ): INEO {
-    const neoSimple: INEO = {
-      id: null,
-      name: null,
-      estimated_diameter: null,
-      is_potentially_hazardous_asteroid: null,
-      relative_velocity: null,
-      miss_distance: null,
-      nickname: ''
-    };
-    Object.keys(neo).forEach(key => {
+  // (This just does some data massaging)
+  private mapNEObj(fullNeo: { [key: string]: any } ): INEO {
+    const neo: INEO = initialNEO;
+    Object.keys(fullNeo).forEach(key => {
       if (key === 'id') {
-        neoSimple.id = neo[key];
+        neo.id = fullNeo[key];
       }
       if (key === 'name') {
-        neoSimple.name = neo[key];
+        neo.name = fullNeo[key];
       }
       if (key === 'estimated_diameter') {
-        const estD = (neo[key].miles.estimated_diameter_min + neo[key].miles.estimated_diameter_max) / 2;
-        neoSimple.estimated_diameter = estD;
+        const estD = (fullNeo[key].miles.estimated_diameter_min + fullNeo[key].miles.estimated_diameter_max) / 2;
+        neo.estimated_diameter = estD;
       }
       if (key === 'is_potentially_hazardous_asteroid') {
-        neoSimple.is_potentially_hazardous_asteroid = neo[key];
+        neo.is_potentially_hazardous_asteroid = fullNeo[key];
       }
       if (key === 'close_approach_data') {
-        neoSimple.relative_velocity = Math.round(1 * neo[key][0].relative_velocity.miles_per_hour);
-        neoSimple.miss_distance = neo[key][0].miss_distance.miles * 1;
+        neo.relative_velocity = Math.round(1 * fullNeo[key][0].relative_velocity.miles_per_hour);
+        neo.miss_distance = fullNeo[key][0].miss_distance.miles * 1;
       }
     });
-    return Object.assign({}, neoSimple);
+    return Object.assign({}, neo);
   }
 
   // Take API data and produce an array of simplified NEOs
-  mapNEOResponse(res: INEOAPI): INEO[] {
-    const neoList = res.near_earth_objects[this.getNEODate];
+  mapNEOResponse(neoData: INEOAPI): INEO[] {
+    const neoList = neoData.near_earth_objects[this.getNEODate];
     return neoList.map(neo => this.mapNEObj(neo));
   }
 

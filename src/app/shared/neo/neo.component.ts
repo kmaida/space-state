@@ -4,7 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { INEO, INEONICKNAME } from '../../data/data.interface';
+import { INEO, INEONICKNAME } from '../../data/data.model';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({

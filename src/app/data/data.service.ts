@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { INEO, INEONICKNAME } from './data.interface';
+import { INEO, INEONICKNAME } from './data.model';
 import { BehaviorSubject } from 'rxjs';
 import { UtilsService } from './utils.service';
 
@@ -45,7 +45,7 @@ export class DataService {
   stateError(errMsg: string, undoStateChange?: boolean) {
     this.errorMsg$.next(errMsg);
     if (undoStateChange) {
-      this.stateNEO$.next(this.state);
+      this.undoLastState();
     }
   }
 }
