@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { INEO, INEONICKNAME } from './data.model';
+import { INEO } from './data.model';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { UtilsService } from './utils.service';
 import { scan, shareReplay } from 'rxjs/operators';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,9 @@ export class DataService {
       return this.state;
     })
   );
-  errors$ = this.errorSubject.asObservable().pipe(shareReplay(1));
+  errors$ = this.errorSubject.asObservable().pipe(
+    shareReplay(1)
+  );
 
   constructor(private utils: UtilsService) { }
 
@@ -29,7 +32,7 @@ export class DataService {
     this.errorSubject.next(null);
   }
 
-  updateNickname(neobj: INEO|INEONICKNAME) {
+  updateNickname(neobj: INEO) {
     const currentState = this.utils.freezeArray([...this.state]);
     const index = currentState.findIndex(o => neobj.id === o.id);
     const newState = currentState.map((current, i) => {

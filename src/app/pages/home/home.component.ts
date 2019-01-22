@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './../../data/data.service';
 import { UtilsService } from './../../data/utils.service';
-import { tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/data/api.service';
 
 @Component({

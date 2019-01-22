@@ -4,8 +4,8 @@ import {
   Input,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { INEO, INEONICKNAME } from '../../data/data.model';
-import { DataService } from 'src/app/data/data.service';
+import { INEO } from './../../data/data.model';
+import { ApiService } from 'src/app/data/api.service';
 
 @Component({
   selector: 'app-neo',
@@ -16,7 +16,7 @@ import { DataService } from 'src/app/data/data.service';
 export class NeoComponent implements OnInit {
   @Input() neo: INEO;
 
-  constructor(private data: DataService) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
   }
@@ -27,8 +27,10 @@ export class NeoComponent implements OnInit {
       'Call Ben Affleck, it might be ARMAGEDDON!';
   }
 
-  onSubmitNickname(neoNickname: INEONICKNAME) {
-    this.data.updateNickname(neoNickname);
+  onSubmitNickname(neoNickname: INEO) {
+    this.api.addNeoNickname$(neoNickname).subscribe(
+      neo => console.log('Successfully updated nickname!', neo)
+    );
   }
 
 }

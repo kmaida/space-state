@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
   EventEmitter
 } from '@angular/core';
-import { INEO, INEONICKNAME } from '../../data/data.model';
+import { INEO } from './../../data/data.model';
 
 @Component({
   selector: 'app-neo-form',
@@ -16,25 +16,24 @@ import { INEO, INEONICKNAME } from '../../data/data.model';
 })
 export class NeoFormComponent implements OnInit {
   @Input() neo: INEO;
-  @Output() submitNickname = new EventEmitter<INEONICKNAME>();
-  neoForm: INEONICKNAME;
+  @Output() submitNickname = new EventEmitter<INEO>();
+  neoForm: INEO;
 
   constructor() { }
 
   ngOnInit() {
-    this.resetForm();
+    this.setForm();
   }
 
-  resetForm() {
-    this.neoForm = Object.assign({}, {
-      id: this.neo.id,
-      nickname: this.neo.nickname
+  private setForm() {
+    this.neoForm = Object.assign({}, this.neo, {
+      nickname: ''
     });
   }
 
-  onSubmit(input: INEONICKNAME) {
+  onSubmit(input: INEO) {
     this.submitNickname.emit(input);
-    this.resetForm();
+    this.setForm();
   }
 
 }
