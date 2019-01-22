@@ -10,23 +10,23 @@ import { scan, shareReplay } from 'rxjs/operators';
 export class DataService {
   private initialState = [];
   private prevState: INEO[] = this.initialState;
-  private state: INEO[];
+  private state: INEO[] = this.initialState;
   private neoSubject = new BehaviorSubject<INEO[]>(this.initialState);
   private errorSubject = new Subject<string>();
-  neo$ = this.neoSubject.asObservable()
-    .pipe(
-      scan((prevState: INEO[], newState: INEO[]) => {
-        this.prevState = prevState;
-        this.state = [...newState];
-        return this.state;
-      })
-    );
+  neo$ = this.neoSubject.asObservable().pipe(
+    scan((prev: INEO[], newState: INEO[]) => {
+      this.prevState = prev;
+      this.state = [...newState];
+      return this.state;
+    })
+  );
   errors$ = this.errorSubject.asObservable().pipe(shareReplay(1));
 
   constructor(private utils: UtilsService) { }
 
   updateNEOList(neoList: INEO[]) {
     this.neoSubject.next(neoList);
+    this.errorSubject.next(null);
   }
 
   updateNickname(neobj: INEO|INEONICKNAME) {
@@ -42,14 +42,10 @@ export class DataService {
     this.errorSubject.next(null);
   }
 
-  private undoLastState() {
-    this.neoSubject.next(this.prevState);
-  }
-
-  stateError(errMsg: string, undoStateChange?: boolean) {
+  stateError(errMsg: string, emitPrevState?: boolean) {
     this.errorSubject.next(errMsg);
-    if (undoStateChange) {
-      this.undoLastState();
+    if (emitPrevState) {
+      this.neoSubject.next(this.prevState);
     }
   }
 }
