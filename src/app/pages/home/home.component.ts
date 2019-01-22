@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from './../../data/data.service';
 import { UtilsService } from './../../data/utils.service';
 import { tap } from 'rxjs/operators';
+import { ApiService } from 'src/app/data/api.service';
 
 @Component({
   selector: 'app-home',
@@ -9,20 +10,10 @@ import { tap } from 'rxjs/operators';
   styles: []
 })
 export class HomeComponent implements OnInit {
-  loading = true;
-  neo$ = this.data.neo$.pipe(
-    tap(neoList => {
-      if (neoList.length) {
-        this.loading = false;
-      }
-    })
-  );
-  error$ = this.data.errors$.pipe(
-    tap(msg => this.loading = false)
-  );
 
   constructor(
-    private data: DataService,
+    public data: DataService,
+    public api: ApiService,
     public utils: UtilsService
   ) {}
 

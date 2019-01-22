@@ -12,6 +12,7 @@ import { UtilsService } from './utils.service';
 })
 export class ApiService {
   private apiNEOUrl = `https://api.nasa.gov/neo/rest/v1/feed?detailed=false&start_date=${this.utils.getNEODate}&end_date=${this.utils.getNEODate}&api_key=${environment.nasaApiKey}`;
+  loading = true;
 
   constructor(
     private data: DataService,
@@ -21,9 +22,12 @@ export class ApiService {
 
   getNEOToday$(): Observable<INEO[]> {
     return this.http.get<INEOAPI>(this.apiNEOUrl).pipe(
-      delay(2000),
+      delay(1500), // simulate server delay
       map(res => this.utils.mapNEOResponse(res)),
-      tap(neoList => this.data.updateNEOList(neoList)),
+      tap(neoList => {
+        this.data.updateNEOList(neoList);
+        this.loading = false;
+      }),
       catchError(err => this.onError(err))
     );
   }
@@ -33,6 +37,7 @@ export class ApiService {
     if (err instanceof HttpErrorResponse) {
       errorMsg = err.message;
     }
+    this.loading = false;
     this.data.stateError(errorMsg, true);
     return throwError(errorMsg);
   }

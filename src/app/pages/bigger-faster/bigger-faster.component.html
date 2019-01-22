@@ -2,15 +2,13 @@
 <p class="lead text-center">Near Earth Objects with an estimated diameter over half a mile <em>or</em><br>
   with a relative velocity of more than 50,000 miles per hour.</p>
 
-<ng-template #noNEO>
-  <app-loading *ngIf="loading"></app-loading>
-</ng-template>
-
 <app-error
-  *ngIf="error$ | async as err"
+  *ngIf="data.errors$ | async as err"
   [msg]="err"></app-error>
 
-<div *ngIf="biggerFasterNeo$ | async as neos else noNEO" class="row mb-3">
+<app-loading *ngIf="api.loading"></app-loading>
+
+<div *ngIf="biggerFasterNeo$ | async as neos" class="row mb-3">
   <div *ngFor="let neo of neos" class="col-xs-12 col-sm-6 col-md-4">
     <app-neo [neo]="neo"></app-neo>
   </div>
