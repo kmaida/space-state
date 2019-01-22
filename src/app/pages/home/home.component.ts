@@ -12,7 +12,9 @@ export class HomeComponent implements OnInit {
   loading = true;
   neo$ = this.data.neo$.pipe(
     tap(neoList => {
-      this.loading = false;
+      if (neoList.length) {
+        this.loading = false;
+      }
     })
   );
   error$ = this.data.errors$.pipe(
@@ -22,7 +24,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private data: DataService,
     public utils: UtilsService
-  ) { }
+  ) {}
 
   ngOnInit() {
   }

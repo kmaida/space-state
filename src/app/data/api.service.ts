@@ -21,7 +21,7 @@ export class ApiService {
 
   getNEOToday$(): Observable<INEO[]> {
     return this.http.get<INEOAPI>(this.apiNEOUrl).pipe(
-      delay(4000),
+      delay(2000),
       map(res => this.utils.mapNEOResponse(res)),
       tap(neoList => this.data.updateNEOList(neoList)),
       catchError(err => this.onError(err))

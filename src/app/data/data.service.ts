@@ -1,29 +1,35 @@
 import { Injectable } from '@angular/core';
 import { INEO, INEONICKNAME } from './data.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { UtilsService } from './utils.service';
+import { scan, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private state: INEO[] = null;
-  private prevState: INEO[] = this.state;
-  private stateNEO$ = new BehaviorSubject<INEO[]>(this.state);
-  private errorMsg$ = new BehaviorSubject<string>(null);
-  neo$ = this.stateNEO$.asObservable();
-  errors$ = this.errorMsg$.asObservable();
+  private initialState = [];
+  private prevState: INEO[] = this.initialState;
+  private state: INEO[];
+  private neoSubject = new BehaviorSubject<INEO[]>(this.initialState);
+  private errorSubject = new Subject<string>();
+  neo$ = this.neoSubject.asObservable()
+    .pipe(
+      scan((prevState: INEO[], newState: INEO[]) => {
+        this.prevState = prevState;
+        this.state = [...newState];
+        return this.state;
+      })
+    );
+  errors$ = this.errorSubject.asObservable().pipe(shareReplay(1));
 
   constructor(private utils: UtilsService) { }
 
   updateNEOList(neoList: INEO[]) {
-    this.prevState = this.state;
-    this.state = [...neoList];
-    this.stateNEO$.next(this.state);
+    this.neoSubject.next(neoList);
   }
 
   updateNickname(neobj: INEO|INEONICKNAME) {
-    this.prevState = this.state;
     const currentState = this.utils.freezeArray([...this.state]);
     const index = currentState.findIndex(o => neobj.id === o.id);
     const newState = currentState.map((current, i) => {
@@ -32,18 +38,16 @@ export class DataService {
       }
       return current;
     });
-    this.state = newState;
-    this.stateNEO$.next(this.state);
-    this.errorMsg$.next(null);
+    this.neoSubject.next(newState);
+    this.errorSubject.next(null);
   }
 
   private undoLastState() {
-    this.state = this.prevState;
-    this.stateNEO$.next(this.state);
+    this.neoSubject.next(this.prevState);
   }
 
   stateError(errMsg: string, undoStateChange?: boolean) {
-    this.errorMsg$.next(errMsg);
+    this.errorSubject.next(errMsg);
     if (undoStateChange) {
       this.undoLastState();
     }
