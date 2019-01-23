@@ -8,7 +8,7 @@ import { Router, NavigationEnd } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class StateService {
   private initialState = [];
   prevState: INEO[] = this.initialState;
   private state: INEO[] = this.initialState;

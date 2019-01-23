@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from './../../data/data.service';
+import { StateService } from '../../data/state.service';
 import { UtilsService } from './../../data/utils.service';
 import { filter, map } from 'rxjs/operators';
 import { ApiService } from './../../data/api.service';
@@ -13,7 +13,7 @@ import { list } from './../../shared/list.animation';
   animations: [toast, list]
 })
 export class BiggerFasterComponent implements OnInit {
-  biggerFasterNeo$ = this.data.neo$.pipe(
+  biggerFasterNeo$ = this.state.neo$.pipe(
     filter(neoList => !!neoList === true),
     map(neoList => neoList.filter(neo => {
       if (neo.estimated_diameter > 0.5 || neo.relative_velocity > 50000) {
@@ -23,7 +23,7 @@ export class BiggerFasterComponent implements OnInit {
   );
 
   constructor(
-    public data: DataService,
+    public state: StateService,
     public api: ApiService,
     public utils: UtilsService
   ) { }

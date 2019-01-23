@@ -1,0 +1,14 @@
+footer {
+  color: #add2eb;
+  font-size: .7rem;
+  text-transform: uppercase;
+}
+a {
+  color: #add2eb;
+  transition: color 300ms ease;
+}
+a:hover {
+  color: #fff;
+  text-decoration: none;
+  transition: color 300ms ease;
+}

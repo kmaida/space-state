@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DataService } from '../../data/data.service';
+import { StateService } from '../../data/state.service';
 
 @Component({
   selector: 'app-error',
@@ -9,7 +9,7 @@ import { DataService } from '../../data/data.service';
 export class ErrorComponent implements OnInit {
   @Input() msg: string;
 
-  constructor(public data: DataService) { }
+  constructor(public state: StateService) { }
 
   ngOnInit() {
   }

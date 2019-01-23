@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, tap, catchError, delay } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { INEOAPI, INEO } from './data.model';
-import { DataService } from './data.service';
+import { StateService } from './state.service';
 import { UtilsService } from './utils.service';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class ApiService {
   loading = true;
 
   constructor(
-    private data: DataService,
+    private state: StateService,
     private http: HttpClient,
     private utils: UtilsService
   ) { }
@@ -25,7 +25,7 @@ export class ApiService {
       delay(1500), // simulate longer server delay
       map(res => this.utils.mapNEOResponse(res)),
       tap(neoList => {
-        this.data.updateNEOList(neoList);
+        this.state.updateNEOList(neoList);
         this.loading = false;
       }),
       catchError(err => this.onError(err))
@@ -34,7 +34,7 @@ export class ApiService {
 
   addNeoNickname$(neo: INEO): Observable<INEO> {
     // Make optimistic UI updates
-    this.data.updateNeo(neo);
+    this.state.updateNeo(neo);
     // Nickname update observable
     const subscriber = (observer) => {
       if (neo.name === '(2018 PV24)') {
@@ -57,7 +57,7 @@ export class ApiService {
   onError(err: any) {
     const errorMsg = err.message ? err.message : 'Unable to complete request.';
     this.loading = false;
-    this.data.stateError(errorMsg, true);
+    this.state.stateError(errorMsg, true);
     return throwError(errorMsg);
   }
 }
