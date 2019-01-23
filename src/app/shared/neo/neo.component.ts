@@ -5,7 +5,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { INEO } from './../../data/data.model';
-import { ApiService } from 'src/app/data/api.service';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-neo',
@@ -16,7 +16,7 @@ import { ApiService } from 'src/app/data/api.service';
 export class NeoComponent implements OnInit {
   @Input() neo: INEO;
 
-  constructor(private api: ApiService) { }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
   }
@@ -28,7 +28,7 @@ export class NeoComponent implements OnInit {
   }
 
   onSubmitNickname(neoNickname: INEO) {
-    this.api.addNeoNickname$(neoNickname).subscribe(
+    this.data.addNeoNickname$(neoNickname).subscribe(
       neo => console.log('Successfully updated nickname!', neo)
     );
   }

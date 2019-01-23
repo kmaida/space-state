@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './data/api.service';
+import { DataService } from './data/data.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +8,10 @@ import { ApiService } from './data/api.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(public api: ApiService) {}
+  constructor(public data: DataService) {}
 
   ngOnInit() {
-    this.api.getNEOToday$().subscribe();
+    this.data.getNEOToday$().subscribe();
   }
 
 }

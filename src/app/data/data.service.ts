@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, tap, catchError, delay } from 'rxjs/operators';
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { INEOAPI, INEO } from './data.model';
 import { StateService } from './state.service';
 import { UtilsService } from './utils.service';
@@ -10,7 +10,7 @@ import { UtilsService } from './utils.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class DataService {
   private apiNEOUrl = `https://api.nasa.gov/neo/rest/v1/feed?detailed=false&start_date=${this.utils.getNEODate}&end_date=${this.utils.getNEODate}&api_key=${environment.nasaApiKey}`;
   loading = true;
 

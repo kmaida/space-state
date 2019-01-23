@@ -7,7 +7,7 @@
   [msg]="err"
   @toast></app-error>
 
-<app-loading *ngIf="api.loading"></app-loading>
+<app-loading *ngIf="data.loading"></app-loading>
 
 <div *ngIf="biggerFasterNeo$ | async as neos" class="row mb-3">
   <div

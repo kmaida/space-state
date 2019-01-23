@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StateService } from '../../data/state.service';
 import { UtilsService } from './../../data/utils.service';
 import { filter, map } from 'rxjs/operators';
-import { ApiService } from './../../data/api.service';
+import { DataService } from '../../data/data.service';
 import { toast } from '../../shared/toast.animation';
 import { list } from './../../shared/list.animation';
 
@@ -24,7 +24,7 @@ export class BiggerFasterComponent implements OnInit {
 
   constructor(
     public state: StateService,
-    public api: ApiService,
+    public data: DataService,
     public utils: UtilsService
   ) { }
 
