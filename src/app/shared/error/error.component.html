@@ -1,0 +1,10 @@
+<div class="toast-error alert alert-danger">
+  <div class="toast-error-header">
+    <strong class="float-left">Houston, we have a problem.</strong>
+    <a class="float-right" (click)="data.dismissError()" tabindex>&times;</a>
+  </div>
+  <div class="toast-error-body">
+    <ng-container *ngIf="msg else defaultMsg">{{ msg }}</ng-container>
+    <ng-template #defaultMsg>Something went wrong. Please try again!</ng-template>
+  </div>
+</div>

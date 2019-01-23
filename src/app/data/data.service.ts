@@ -62,4 +62,8 @@ export class DataService {
       this.neoSubject.next(this.prevState);
     }
   }
+
+  dismissError() {
+    this.errorSubject.next(null);
+  }
 }

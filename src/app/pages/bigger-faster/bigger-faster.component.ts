@@ -3,14 +3,14 @@ import { DataService } from './../../data/data.service';
 import { UtilsService } from './../../data/utils.service';
 import { filter, map } from 'rxjs/operators';
 import { ApiService } from './../../data/api.service';
-import { expandCollapse } from './../../shared/expand-collapse.animation';
+import { toast } from '../../shared/toast.animation';
 import { list } from './../../shared/list.animation';
 
 @Component({
   selector: 'app-bigger-faster',
   templateUrl: './bigger-faster.component.html',
   styles: [],
-  animations: [expandCollapse, list]
+  animations: [toast, list]
 })
 export class BiggerFasterComponent implements OnInit {
   biggerFasterNeo$ = this.data.neo$.pipe(

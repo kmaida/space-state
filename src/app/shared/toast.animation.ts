@@ -1,10 +1,10 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 
-export const list = trigger('list', [
+export const toast = trigger('toast', [
   transition(':enter', [
     style({
       opacity: 0,
-      transform: 'translateY(-5px)'
+      transform: 'translateY(30px)'
     }),
     animate('300ms ease-in', style({
       opacity: 1,
@@ -14,7 +14,7 @@ export const list = trigger('list', [
   transition(':leave', [
     animate('300ms ease-out', style({
       opacity: 0,
-      transform: 'translateY(-5px)'
+      transform: 'translateY(30px)'
     }))
   ])
 ]);

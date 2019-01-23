@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NeoComponent } from './shared/neo/neo.component';
 import { LoadingComponent } from './shared/loading.component';
-import { ErrorComponent } from './shared/error.component';
+import { ErrorComponent } from './shared/error/error.component';
 import { BiggerFasterComponent } from './pages/bigger-faster/bigger-faster.component';
 import { NeoFormComponent } from './shared/neo-form/neo-form.component';
 

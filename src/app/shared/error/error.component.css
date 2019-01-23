@@ -1,0 +1,30 @@
+:host() {
+  position: fixed;
+    bottom: 40px; left: 40px;
+  z-index: 1;
+}
+.alert {
+  box-shadow: 0 0 30px 7px rgba(0,0,0,.8);
+  margin-bottom: 0;
+  padding: 0;
+}
+.toast-error-header {
+  border-bottom: 1px solid #af0000;
+  color: #fff;
+  line-height: 1.5rem;
+  overflow: hidden;
+  padding: .5rem .75rem;
+}
+.toast-error-body {
+  background: rgba(0,0,0,.3);
+  font-size: .85rem;
+  padding: .85rem .75rem;
+}
+a {
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+a:hover {
+  text-decoration: none;
+}

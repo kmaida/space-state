@@ -37,7 +37,7 @@ export class ApiService {
     this.data.updateNeo(neo);
     // Nickname update observable
     const subscriber = (observer) => {
-      if (neo.name === '112221 (2002 KH4)') {
+      if (neo.name === '(2018 PV24)') {
         // Force an error
         observer.error({
           message: `Could not update nickname for ${neo.name}.`
