@@ -3,14 +3,14 @@ import { INEO } from './data.model';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { UtilsService } from './utils.service';
 import { scan, shareReplay } from 'rxjs/operators';
-import { ApiService } from './api.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   private initialState = [];
-  private prevState: INEO[] = this.initialState;
+  prevState: INEO[] = this.initialState;
   private state: INEO[] = this.initialState;
   private neoSubject = new BehaviorSubject<INEO[]>(this.initialState);
   private errorSubject = new Subject<string>();
@@ -25,14 +25,25 @@ export class DataService {
     shareReplay(1)
   );
 
-  constructor(private utils: UtilsService) { }
+  constructor(
+    private utils: UtilsService,
+    private router: Router
+  ) {
+    this.router.events.subscribe(
+      event => {
+        if (event instanceof NavigationEnd) {
+          this.errorSubject.next(null);
+        }
+      }
+    );
+  }
 
   updateNEOList(neoList: INEO[]) {
     this.neoSubject.next(neoList);
     this.errorSubject.next(null);
   }
 
-  updateNickname(neobj: INEO) {
+  updateNeo(neobj: INEO) {
     const currentState = this.utils.freezeArray([...this.state]);
     const index = currentState.findIndex(o => neobj.id === o.id);
     const newState = currentState.map((current, i) => {

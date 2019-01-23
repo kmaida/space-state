@@ -10,6 +10,7 @@ body {
   background-size: 750px 750px, 550px 550px, 450px 450px, 350px 350px, 250px 250px, 150px 150px;
   background-position: 0 0, 40px 60px, 130px 270px, 70px 100px, 110px 200px;
   color:#e8ebee;
+  overflow-y: scroll;
 }
 .nav-link {
   color: #00c0fb;
@@ -69,4 +70,8 @@ h6.card-title {
 }
 ::placeholder {
   color: rgba(0,192,251,.6) !important;
+}
+/* For animation support */
+app-error {
+  display: block;
 }

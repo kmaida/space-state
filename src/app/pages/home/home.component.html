@@ -2,12 +2,13 @@
 
 <app-error
   *ngIf="data.errors$ | async as err"
-  [msg]="err"></app-error>
+  [msg]="err"
+  @expandCollapse></app-error>
 
 <app-loading *ngIf="api.loading"></app-loading>
 
 <div *ngIf="data.neo$ | async as neos" class="row mb-3">
-  <div *ngFor="let neo of neos; trackBy: trackByID" class="col-xs-12 col-sm-6 col-md-4">
+  <div *ngFor="let neo of neos; trackBy: trackByID" class="col-xs-12 col-sm-6 col-md-4" @list>
     <app-neo [neo]="neo"></app-neo>
   </div>
 </div>

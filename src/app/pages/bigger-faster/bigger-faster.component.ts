@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from './../../data/data.service';
 import { UtilsService } from './../../data/utils.service';
 import { filter, map } from 'rxjs/operators';
-import { ApiService } from 'src/app/data/api.service';
+import { ApiService } from './../../data/api.service';
+import { expandCollapse } from './../../shared/expand-collapse.animation';
+import { list } from './../../shared/list.animation';
 
 @Component({
   selector: 'app-bigger-faster',
   templateUrl: './bigger-faster.component.html',
-  styles: []
+  styles: [],
+  animations: [expandCollapse, list]
 })
 export class BiggerFasterComponent implements OnInit {
   biggerFasterNeo$ = this.data.neo$.pipe(
@@ -26,6 +29,10 @@ export class BiggerFasterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  trackByID(index, item) {
+    return item.id;
   }
 
 }

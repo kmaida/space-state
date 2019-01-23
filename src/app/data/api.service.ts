@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, tap, catchError, delay } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
@@ -34,7 +34,7 @@ export class ApiService {
 
   addNeoNickname$(neo: INEO): Observable<INEO> {
     // Make optimistic UI updates
-    this.data.updateNickname(neo);
+    this.data.updateNeo(neo);
     // Nickname update observable
     const subscriber = (observer) => {
       if (neo.name === '112221 (2002 KH4)') {
@@ -55,10 +55,7 @@ export class ApiService {
   }
 
   onError(err: any) {
-    let errorMsg = 'Unable to complete request.';
-    if (err.message) {
-      errorMsg = err.message;
-    }
+    const errorMsg = err.message ? err.message : 'Unable to complete request.';
     this.loading = false;
     this.data.stateError(errorMsg, true);
     return throwError(errorMsg);
