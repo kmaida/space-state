@@ -11,7 +11,7 @@ import { INEO } from './../../data/data.model';
 @Component({
   selector: 'app-neo-form',
   templateUrl: './neo-form.component.html',
-  styles: [],
+  styleUrls: ['./neo-form.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NeoFormComponent implements OnInit {

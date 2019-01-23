@@ -1,0 +1,16 @@
+.btn-nickname {
+  background: rgba(10,36,54,.5);
+  border-color: #00c0fb;
+  color: #00c0fb;
+  font-size: .85rem;
+  padding: .5rem;
+}
+.btn-nickname:disabled {
+  color: inherit;
+}
+.btn-nickname:hover {
+  color: #c8f2ff;
+}
+.input-nickname {
+  border-color: rgba(10,36,54,.5);
+}

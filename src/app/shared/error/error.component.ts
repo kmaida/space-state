@@ -3,8 +3,8 @@ import { DataService } from '../../data/data.service';
 
 @Component({
   selector: 'app-error',
-  templateUrl: 'error.component.html',
-  styleUrls: ['error.component.css']
+  templateUrl: './error.component.html',
+  styleUrls: ['./error.component.css']
 })
 export class ErrorComponent implements OnInit {
   @Input() msg: string;
