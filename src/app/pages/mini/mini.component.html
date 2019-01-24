@@ -1,0 +1,18 @@
+<h1 class="text-center my-4">Mini Near Earth Objects on {{ utils.getNEODate | date:'mediumDate' }}</h1>
+<p class="lead text-center">Near Earth Objects with an estimated diameter smaller than a quarter of a mile.</p>
+
+<app-error
+  *ngIf="state.errors$ | async as err"
+  [msg]="err"
+  @toast></app-error>
+
+<app-loading *ngIf="data.loading"></app-loading>
+
+<div *ngIf="miniNeo$ | async as neos" class="row mb-3">
+  <div
+    *ngFor="let neo of neos; trackBy: trackByID"
+    class="col-sm-12 col-md-6 col-lg-4"
+    @list>
+    <app-neo [neo]="neo"></app-neo>
+  </div>
+</div>
