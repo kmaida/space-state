@@ -14,3 +14,10 @@
 .input-nickname {
   border-color: rgba(10,36,54,.5);
 }
+.form-inline .form-group {
+  flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+}
+.form-inline .form-control {
+  width: calc(100% - 57px);
+}
