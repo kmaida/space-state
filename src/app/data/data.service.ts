@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, defer } from 'rxjs';
 import { map, tap, catchError, delay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { INEOAPI, INEO } from 'src/app/data/data.model';
@@ -33,25 +33,30 @@ export class DataService {
   }
 
   addNeoNickname$(neo: INEO): Observable<INEO> {
-    // Make optimistic UI updates
-    this.state.updateNeo(neo);
-    // Nickname update observable
-    const subscriber = (observer) => {
-      if (neo.name === '(2018 PV24)') {
-        // Force an error
-        observer.error({
-          message: `Could not update nickname for ${neo.name}.`
-        });
-      } else {
-        observer.next(neo);
-      }
-      observer.complete();
-    };
-    const obs$: Observable<INEO> = new Observable(subscriber);
-    return obs$.pipe(
-      delay(2000),  // @TODO: only success is delayed, not errors
-      catchError(err => this.onError(err))
-    );
+    // Deferred so that the observable will
+    // only be created on subscription
+    return defer(() => {
+      let serverDelay;
+      // Make optimistic UI updates
+      this.state.updateNeo(neo);
+      // Return the observable that "interacts with the server"
+      return new Observable<INEO>(observer => {
+        serverDelay = setTimeout(() => {
+          clearTimeout(serverDelay);
+          // Force an error for one particular item
+          if (neo.name === '(2018 PV24)') {
+            observer.error({
+              message: `Could not update nickname for ${neo.name}.`
+            });
+          } else {
+            observer.next(neo);
+          }
+          observer.complete();
+        }, 1500);
+      }).pipe(
+        catchError(err => this.onError(err))
+      );
+    });
   }
 
   onError(err: any) {

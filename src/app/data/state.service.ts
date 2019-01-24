@@ -5,23 +5,77 @@ import { UtilsService } from 'src/app/data/utils.service';
 import { scan, shareReplay } from 'rxjs/operators';
 import { Router, NavigationEnd } from '@angular/router';
 
+
+
+// interface Action<T=any> {
+//   type: string;
+//   payload?: T
+// }
+
+// const actions = new BehaviorSubject<Action>({ type: 'INIT' });
+
+
+// const states = actions.pipe(scan((state, action) => {
+//   switch (action.type) {
+//     case 'INC':
+//       return { ...state, count: state.count + 1 };
+//     case 'DEC':
+//       return { ...state, count: state.count - 1 };
+//     default:
+//       return state;
+//   }
+// }, INITIAL_STATE));
+
+
+
+// /**
+//  *
+//  * EventBus (actions subject) -> StateManager (scan)
+//  *      |-> Side Effect (actions -> new Observable<Action>) -> EventBus
+//  */
+
+
+// let loadEvents: Observable<any> = null;
+
+// function getNasaData(): Observable<{}> {
+//   return null!;
+// }
+
+// let prevState: any;
+
+// an event that wants to load data
+// loadEvents.pipe(
+//   tap(updateOptimistically),
+//   // load the data
+//   concatMap(() => getNasaData().pipe(
+//     // if successful, update the previous state.
+//     tap((data) => prevState = data)
+//     // isolate errors with the load, and return the previous state if there's a problem.
+//     catchError(err => of(prevState))
+//   )),
+// )
+
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class StateService {
-  private initialState = [];
-  private prevState: INEO[] = this.initialState;
-  private state: INEO[] = this.initialState;
-  private neoSubject = new BehaviorSubject<INEO[]>(this.initialState);
+  private initialState: INEO[] = [];
+  private prevState;
+  // TODO: explore removing this.
+  private state = this.initialState;
+  private neoSubject = new BehaviorSubject(this.initialState);
   private errorSubject = new Subject<string>();
-  neo$ = this.neoSubject.asObservable().pipe(
+  neo$ = this.neoSubject.pipe(
     scan((prev: INEO[], newState: INEO[]) => {
       this.prevState = prev;
       this.state = [...newState];
       return this.state;
-    })
+    }, this.initialState)
+    // tap(state => this.prevState = state.slice()),
   );
-  errors$ = this.errorSubject.asObservable().pipe(
+  errors$ = this.errorSubject.pipe(
     shareReplay(1)
   );
 
@@ -47,7 +101,7 @@ export class StateService {
     const currentState = this.utils.freezeArray([...this.state]);
     const newState = currentState.map((current) => {
       if (current.id === neobj.id) {
-        return Object.assign({}, current, neobj);
+        return { ...current, ...neobj };
       }
       return current;
     });
@@ -66,3 +120,4 @@ export class StateService {
     this.errorSubject.next(null);
   }
 }
+

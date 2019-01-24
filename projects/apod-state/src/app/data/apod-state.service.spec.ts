@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { StateService } from './state.service';
+import { StateService } from './apod-state.service';
 
 describe('StateService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
