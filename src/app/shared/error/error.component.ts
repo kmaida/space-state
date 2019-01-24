@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StateService } from '../../data/state.service';
+import { StateService } from 'src/app/data/state.service';
 
 @Component({
   selector: 'app-error',

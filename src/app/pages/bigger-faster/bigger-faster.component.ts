@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService } from '../../data/state.service';
-import { UtilsService } from './../../data/utils.service';
+import { StateService } from 'src/app/data/state.service';
+import { UtilsService } from 'src/app/data/utils.service';
 import { filter, map } from 'rxjs/operators';
-import { DataService } from '../../data/data.service';
-import { toast } from '../../shared/toast.animation';
-import { list } from './../../shared/list.animation';
+import { DataService } from 'src/app/data/data.service';
+import { toast } from 'src/app/shared/animations/toast.animation';
+import { list } from 'src/app/shared/animations/list.animation';
 
 @Component({
   selector: 'app-bigger-faster',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { INEO } from './data.model';
+import { INEO } from 'src/app/data/data.model';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { UtilsService } from './utils.service';
+import { UtilsService } from 'src/app/data/utils.service';
 import { scan, shareReplay } from 'rxjs/operators';
 import { Router, NavigationEnd } from '@angular/router';
 

@@ -1,14 +1,13 @@
 <div class="card my-3" id="{{ neo.id }}">
   <div class="card-body">
     <h5 class="card-title">{{ neo.name }}</h5>
-    <h6 *ngIf="neo.nickname else addNickname" class="card-title mb-2">
+    <h6 *ngIf="neo.nickname" class="card-title mb-2">
       <em>"{{ neo.nickname }}"</em>
     </h6>
-    <ng-template #addNickname>
-      <app-neo-form
-        [neo]="neo"
-        (submitNickname)="onSubmitNickname($event)"></app-neo-form>
-    </ng-template>
+    <app-neo-form
+      *ngIf="!neo.nickname"
+      [neo]="neo"
+      (submitNickname)="onSubmitNickname($event)"></app-neo-form>
     <ul class="list-unstyled">
       <li>
         <strong>Est. Diameter:</strong> {{ neo.estimated_diameter | number:'0.0-3' }} miles

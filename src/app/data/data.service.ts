@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, tap, catchError, delay } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { INEOAPI, INEO } from './data.model';
-import { StateService } from './state.service';
-import { UtilsService } from './utils.service';
+import { environment } from 'src/environments/environment';
+import { INEOAPI, INEO } from 'src/app/data/data.model';
+import { StateService } from 'src/app/data/state.service';
+import { UtilsService } from 'src/app/data/utils.service';
 
 @Injectable({
   providedIn: 'root'

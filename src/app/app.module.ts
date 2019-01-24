@@ -12,7 +12,7 @@ import { NeoComponent } from './shared/neo/neo.component';
 import { LoadingComponent } from './shared/loading.component';
 import { ErrorComponent } from './shared/error/error.component';
 import { BiggerFasterComponent } from './pages/bigger-faster/bigger-faster.component';
-import { NeoFormComponent } from './shared/neo-form/neo-form.component';
+import { NeoFormComponent } from './shared/neo/neo-form/neo-form.component';
 
 @NgModule({
   declarations: [
