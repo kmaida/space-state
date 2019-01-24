@@ -16,6 +16,6 @@
     <button
       type="submit"
       class="btn btn-nickname mb-2"
-      [disabled]="!formNickname.valid || formNickname.pristine || !neoForm.nickname">Save</button>
+      [disabled]="!neoForm.nickname && !unsavedNickname">Save</button>
   </div>
 </form>

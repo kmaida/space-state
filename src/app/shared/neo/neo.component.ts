@@ -15,6 +15,7 @@ import { DataService } from 'src/app/data/data.service';
 })
 export class NeoComponent implements OnInit {
   @Input() neo: INEO;
+  pendingNickname: string;
 
   constructor(private data: DataService) { }
 
@@ -27,9 +28,14 @@ export class NeoComponent implements OnInit {
       'Call Ben Affleck, it might be ARMAGEDDON!';
   }
 
-  onSubmitNickname(neoNickname: INEO) {
-    this.data.addNeoNickname$(neoNickname).subscribe(
-      neo => console.log('Successfully updated nickname!', neo)
+  onSubmitNickname(event: INEO) {
+    this.pendingNickname = '';
+    this.data.addNeoNickname$(event).subscribe(
+      neo => {
+        this.pendingNickname = '';
+        console.log('Successfully updated nickname!', neo);
+      },
+      err => this.pendingNickname = event.nickname
     );
   }
 

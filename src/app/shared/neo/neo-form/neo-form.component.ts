@@ -16,6 +16,7 @@ import { INEO } from 'src/app/data/data.model';
 })
 export class NeoFormComponent implements OnInit {
   @Input() neo: INEO;
+  @Input() unsavedNickname: string;
   @Output() submitNickname = new EventEmitter<INEO>();
   neoForm: INEO;
 
@@ -27,7 +28,7 @@ export class NeoFormComponent implements OnInit {
 
   private setForm() {
     this.neoForm = Object.assign({}, this.neo, {
-      nickname: ''
+      nickname: this.unsavedNickname || ''
     });
   }
 

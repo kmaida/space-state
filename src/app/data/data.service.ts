@@ -44,6 +44,7 @@ export class DataService {
         serverDelay = setTimeout(() => {
           clearTimeout(serverDelay);
           // Force an error for one particular item
+          // if (neo.name === '(2018 PV24)' && Math.random() > .5) {
           if (neo.name === '(2018 PV24)') {
             observer.error({
               message: `Could not update nickname for ${neo.name}.`

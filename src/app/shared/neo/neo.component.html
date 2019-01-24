@@ -5,8 +5,9 @@
       <em>"{{ neo.nickname }}"</em>
     </h6>
     <app-neo-form
-      *ngIf="!neo.nickname"
+      *ngIf="!neo.nickname || pendingNickname"
       [neo]="neo"
+      [unsavedNickname]="pendingNickname"
       (submitNickname)="onSubmitNickname($event)"></app-neo-form>
     <ul class="list-unstyled">
       <li>
