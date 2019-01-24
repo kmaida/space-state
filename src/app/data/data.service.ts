@@ -22,7 +22,7 @@ export class DataService {
 
   getNEOToday$(): Observable<INEO[]> {
     return this.http.get<INEOAPI>(this.apiNEOUrl).pipe(
-      delay(1500), // simulate longer server delay
+      delay(1500), // simulate longer server delay since the NASA API is QUICK
       map(res => this.utils.mapNEOResponse(res)),
       tap(neoList => {
         this.state.updateNEOList(neoList);

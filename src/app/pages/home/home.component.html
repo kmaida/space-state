@@ -7,7 +7,7 @@
 
 <app-loading *ngIf="data.loading"></app-loading>
 
-<div *ngIf="state.neo$ | async as neos" class="row mb-3">
+<div *ngIf="state.store$ | async as neos" class="row mb-3">
   <div
     *ngFor="let neo of neos; trackBy: trackByID"
     class="col-sm-12 col-md-6 col-lg-4"
