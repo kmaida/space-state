@@ -10,7 +10,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class StateService {
   private initialState = [];
-  prevState: INEO[] = this.initialState;
+  private prevState: INEO[] = this.initialState;
   private state: INEO[] = this.initialState;
   private neoSubject = new BehaviorSubject<INEO[]>(this.initialState);
   private errorSubject = new Subject<string>();
@@ -45,9 +45,8 @@ export class StateService {
 
   updateNeo(neobj: INEO) {
     const currentState = this.utils.freezeArray([...this.state]);
-    const index = currentState.findIndex(o => neobj.id === o.id);
-    const newState = currentState.map((current, i) => {
-      if (i === index) {
+    const newState = currentState.map((current) => {
+      if (current.id === neobj.id) {
         return Object.assign({}, current, neobj);
       }
       return current;

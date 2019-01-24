@@ -1,1 +1,58 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #061c2c;
+  background-image:
+  radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 10px),
+  radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 5px),
+  radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 10px),
+  radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 5px),
+  radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 10px),
+  radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 5px);
+  background-size: 750px 750px, 550px 550px, 450px 450px, 350px 350px, 250px 250px, 150px 150px;
+  background-position: 0 0, 40px 60px, 130px 270px, 70px 100px, 110px 200px;
+  color:#e8ebee;
+  overflow-y: scroll;
+}
+.nav-link {
+  color: #00c0fb;
+  font-size: .85rem;
+  text-transform: uppercase;
+  transition: color 300ms ease;
+}
+.nav-link:hover {
+  color: #fff !important;
+  transition: color 300ms ease;
+}
+.nav-link.active {
+  color: #c8f2ff;
+  font-weight: bold;
+}
+.card {
+  background: #00648a;
+  border: 1px solid #00c0fb;
+}
+h1 {
+  color: #add2eb;
+}
+h2, h3, h4, h5, h6, .card-body strong {
+  color: #fff;
+}
+h6.card-title {
+  line-height: 38px;
+}
+.alert {
+  padding: .5rem .75rem;
+}
+.alert-success {
+  background: #183618;
+  border-color: #00fb0c;
+  color: #b8ffc9;
+}
+.alert-danger {
+  background: #5d0505;
+  border-color: #f50000;
+  color: #ffc6c6;
+}
+/* For animation support */
+app-error {
+  display: block;
+}
