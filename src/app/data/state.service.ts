@@ -1,12 +1,10 @@
-import { Injectable } from '@angular/core';
 import { INEO } from 'src/app/data/data.model';
 import { BehaviorSubject, Subject, of, Observable } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
 
-@Injectable()
 export class StateService {
   private initialState: INEO[] = [];
-  private prevState;
+  private prevState: INEO[];
   private state = this.initialState;
   private neoSubject = new BehaviorSubject(this.initialState);
   private errorSubject = new Subject<string>();
@@ -55,4 +53,3 @@ export class StateService {
     this.errorSubject.next(errMsg);
   }
 }
-
