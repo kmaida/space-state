@@ -1,15 +1,15 @@
 <h1 class="text-center my-4">Near Earth Objects on {{ utils.getNEODate | date:'mediumDate' }}</h1>
 
 <app-error
-  *ngIf="state.errors$ | async as err"
+  *ngIf="data.getErrors$ | async as err"
   [msg]="err"
   @toast></app-error>
 
 <app-loading *ngIf="data.loading"></app-loading>
 
-<div *ngIf="state.store$ | async as neos" class="row mb-3">
+<div *ngIf="data.getNeoList$ | async as neos" class="row mb-3">
   <div
-    *ngFor="let neo of neos; trackBy: trackByID"
+    *ngFor="let neo of neos; trackBy: utils.trackByID"
     class="col-sm-12 col-md-6 col-lg-4"
     @list>
     <app-neo [neo]="neo"></app-neo>

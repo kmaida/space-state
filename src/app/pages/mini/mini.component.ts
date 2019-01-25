@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService } from 'src/app/data/state.service';
 import { UtilsService } from 'src/app/data/utils.service';
 import { filter, map } from 'rxjs/operators';
 import { DataService } from 'src/app/data/data.service';
@@ -13,7 +12,7 @@ import { list } from 'src/app/shared/animations/list.animation';
   animations: [toast, list]
 })
 export class MiniComponent implements OnInit {
-  miniNeo$ = this.state.store$.pipe(
+  miniNeo$ = this.data.getNeoList$.pipe(
     filter(neoList => !!neoList === true),
     map(neoList => neoList.filter(neo => {
       if (neo.estimated_diameter < 0.25) {
@@ -23,7 +22,6 @@ export class MiniComponent implements OnInit {
   );
 
   constructor(
-    public state: StateService,
     public data: DataService,
     public utils: UtilsService
   ) { }

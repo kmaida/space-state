@@ -32,6 +32,14 @@ export class DataService {
     );
   }
 
+  get getNeoList$(): Observable<INEO[]> {
+    return this.state.store$;
+  }
+
+  getNeo$(id: string): Observable<INEO> {
+    return this.state.getNeo$(id);
+  }
+
   update$(neo: INEO): Observable<INEO> {
     // Deferred so that the observable will
     // only be created on subscription
@@ -60,8 +68,8 @@ export class DataService {
     });
   }
 
-  getNeo$(id: string): Observable<INEO> {
-    return this.state.getNeo$(id);
+  get getErrors$(): Observable<any> {
+    return this.state.errors$;
   }
 
   private onError(err: any) {

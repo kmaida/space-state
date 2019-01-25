@@ -47,4 +47,8 @@ export class UtilsService {
     return neoList.map(neo => this.mapNEObj(neo));
   }
 
+  trackByID(index, item) {
+    return item.id;
+  }
+
 }
