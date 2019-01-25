@@ -7,7 +7,6 @@ import { DataService } from './data/apod-data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'apod-state';
 
   constructor(public data: DataService) { }
 

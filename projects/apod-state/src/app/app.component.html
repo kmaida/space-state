@@ -2,10 +2,17 @@
   <h1 class="text-center">Astronomy Picture of the Day</h1>
 
   <div *ngIf="data.getApod$ | async as apod">
+    <h2 class="text-center">{{ apod.date | date:'mediumDate' }}</h2>
     <img *ngIf="apod.url" [src]="apod.url" [alt]="apod.title">
+    <p class="lead pt-3">{{ apod.explanation }}</p>
+    <p
+      *ngIf="apod.copyright"
+      class="copyright text-center pt-2">
+      &copy; {{ apod.copyright }}
+    </p>
   </div>
 
-  <footer class="text-center pb-3">
+  <footer class="text-center py-3">
     ng-conf 2019 | <a href="https://github.com/kmaida/space-state">GitHub</a>
   </footer>
 </div>
