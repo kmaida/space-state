@@ -4,14 +4,14 @@ import { Observable, throwError, defer } from 'rxjs';
 import { map, tap, catchError, delay } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { INEOAPI, INEO } from './data.model';
-import { StateService } from './state.service';
+import { State } from './state.class';
 import { UtilsService } from './utils.service';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService extends StateService {
+export class DataService extends State {
   private apiNEOUrl = `https://api.nasa.gov/neo/rest/v1/feed?detailed=false&start_date=${this.utils.getNEODate}&end_date=${this.utils.getNEODate}&api_key=${environment.nasaApiKey}`;
   loading = true;
 

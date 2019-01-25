@@ -1,8 +1,8 @@
 import { INEO } from './data.model';
-import { BehaviorSubject, Subject, of, Observable } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
 
-export class StateService {
+export class State {
   private initialState: INEO[] = [];
   private prevState: INEO[];
   private state = this.initialState;
@@ -36,12 +36,6 @@ export class StateService {
     this.dismissError();
   }
 
-  getNeo$(id: string): Observable<INEO> {
-    return of(this.neoSubject.getValue().find(
-      (neo) => neo.id === id
-    ));
-  }
-
   dismissError() {
     this.errorSubject.next(null);
   }
@@ -52,4 +46,5 @@ export class StateService {
       this.neoSubject.next(this.prevState);
     }
   }
+
 }
