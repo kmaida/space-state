@@ -8,17 +8,6 @@ export class UtilsService {
 
   constructor() { }
 
-  freezeArray(array: any[]) {
-    // Iterate through array and freeze + seal objects.
-    // Note: this is not a deep freeze, as our state data
-    // currently does not require that.
-    array.forEach(obj => {
-      Object.freeze(obj);
-      Object.seal(obj);
-    });
-    return Object.freeze(array);
-  }
-
   // Utility to get date to query the NASA API
   get getNEODate(): string {
     // const today = new Date();
