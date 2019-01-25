@@ -6,26 +6,37 @@ import { environment } from 'src/environments/environment';
 import { INEOAPI, INEO } from 'src/app/data/data.model';
 import { StateService } from 'src/app/data/state.service';
 import { UtilsService } from 'src/app/data/utils.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class DataService extends StateService {
   private apiNEOUrl = `https://api.nasa.gov/neo/rest/v1/feed?detailed=false&start_date=${this.utils.getNEODate}&end_date=${this.utils.getNEODate}&api_key=${environment.nasaApiKey}`;
   loading = true;
 
   constructor(
-    private state: StateService,
     private http: HttpClient,
-    private utils: UtilsService
-  ) { }
+    private utils: UtilsService,
+    private router: Router
+  ) {
+    super();
+    // Clear any errors on navigation event
+    this.router.events.subscribe(
+      event => {
+        if (event instanceof NavigationEnd) {
+          this.dismissError();
+        }
+      }
+    );
+  }
 
   init$(): Observable<INEO[]> {
     return this.http.get<INEOAPI>(this.apiNEOUrl).pipe(
       delay(1500), // simulate longer server delay since the NASA API is QUICK
       map(res => this.utils.mapNEOResponse(res)),
       tap(neoList => {
-        this.state.setNeoList(neoList);
+        this.setNeoList(neoList);
         this.loading = false;
       }),
       catchError(err => this.onError(err))
@@ -33,11 +44,11 @@ export class DataService {
   }
 
   get getNeoList$(): Observable<INEO[]> {
-    return this.state.store$;
+    return this.store$;
   }
 
   getNeo$(id: string): Observable<INEO> {
-    return this.state.getNeo$(id);
+    return this.getNeo$(id);
   }
 
   update$(neo: INEO): Observable<INEO> {
@@ -46,7 +57,7 @@ export class DataService {
     return defer(() => {
       let serverDelay;
       // Make optimistic UI updates
-      this.state.updateNeo(neo);
+      this.updateNeo(neo);
       // Return the observable that "interacts with the server"
       return new Observable<INEO>(observer => {
         serverDelay = setTimeout(() => {
@@ -69,13 +80,17 @@ export class DataService {
   }
 
   get getErrors$(): Observable<any> {
-    return this.state.errors$;
+    return this.errors$;
+  }
+
+  dismissError() {
+    return this.updateError(null);
   }
 
   private onError(err: any) {
     const errorMsg = err.message ? err.message : 'Unable to complete request.';
     this.loading = false;
-    this.state.stateError(errorMsg, true);
+    this.stateError(errorMsg, true);
     return throwError(errorMsg);
   }
 }

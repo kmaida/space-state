@@ -1,7 +1,7 @@
 <div class="toast-error alert alert-danger">
   <div class="toast-error-header">
     <strong class="float-left">Houston, we have a problem.</strong>
-    <a class="float-right pl-3" (click)="state.dismissError()" tabindex>&times;</a>
+    <a class="float-right pl-3" (click)="data.dismissError()" tabindex>&times;</a>
   </div>
   <div class="toast-error-body">
     <ng-container *ngIf="msg else defaultMsg">{{ msg }}</ng-container>

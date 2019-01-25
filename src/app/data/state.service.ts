@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core';
 import { INEO } from 'src/app/data/data.model';
 import { BehaviorSubject, Subject, of, Observable } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
-import { Router, NavigationEnd } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class StateService {
   private initialState: INEO[] = [];
   private prevState;
@@ -20,16 +17,7 @@ export class StateService {
     shareReplay(1)
   );
 
-  constructor(private router: Router) {
-    // Clear any errors on navigation event
-    this.router.events.subscribe(
-      event => {
-        if (event instanceof NavigationEnd) {
-          this.errorSubject.next(null);
-        }
-      }
-    );
-  }
+  constructor() { }
 
   setNeoList(neoList: INEO[]) {
     this.prevState = this.state;
@@ -57,14 +45,14 @@ export class StateService {
   }
 
   stateError(errMsg: string, emitPrevState?: boolean) {
-    this.errorSubject.next(errMsg);
+    this.updateError(errMsg);
     if (emitPrevState) {
       this.neoSubject.next(this.prevState);
     }
   }
 
-  dismissError() {
-    this.errorSubject.next(null);
+  updateError(errMsg: string) {
+    this.errorSubject.next(errMsg);
   }
 }
 
