@@ -7,4 +7,9 @@ export interface IAPOD {
   service_version: string;
   title: string;
   url: string;
+  stars?: number;
+}
+
+export interface ISTATE {
+  [key: string]: any;
 }

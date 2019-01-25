@@ -9,9 +9,9 @@ import { DataService } from './data/apod-data.service';
 export class AppComponent implements OnInit {
   title = 'apod-state';
 
-  constructor(private data: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit() {
-    this.data.getApod$().subscribe();
+    this.data.init$().subscribe();
   }
 }

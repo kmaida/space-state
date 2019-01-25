@@ -1,6 +1,10 @@
 <div class="container">
   <h1 class="text-center">Astronomy Picture of the Day</h1>
 
+  <div *ngIf="data.getApod$ | async as apod">
+    <img *ngIf="apod.url" [src]="apod.url" [alt]="apod.title">
+  </div>
+
   <footer class="text-center pb-3">
     ng-conf 2019 | <a href="https://github.com/kmaida/space-state">GitHub</a>
   </footer>

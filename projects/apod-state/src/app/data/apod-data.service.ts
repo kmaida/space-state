@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IAPOD } from './apod.model';
+import { IAPOD, ISTATE } from './apod.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
+import { StateService } from './apod-state.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,18 @@ import { tap } from 'rxjs/operators';
 export class DataService {
   private apiAPODUrl = `https://api.nasa.gov/planetary/apod?hd=true&api_key=${environment.nasaApiKey}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private state: StateService
+  ) { }
 
-  getApod$(): Observable<IAPOD> {
+  init$(): Observable<IAPOD> {
     return this.http.get<IAPOD>(this.apiAPODUrl).pipe(
-      tap(apod => console.log(apod))
+      tap(apod => this.state.setApod(apod))
     );
+  }
+
+  get getApod$(): Observable<ISTATE> {
+    return this.state.apodStore$;
   }
 }
