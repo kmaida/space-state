@@ -49,7 +49,7 @@ export class UtilsService {
         neo.miss_distance = fullNeo[key][0].miss_distance.miles * 1;
       }
     });
-    return Object.assign({}, neo);
+    return {...neo};
   }
 
   // Take API data and produce an array of simplified NEOs

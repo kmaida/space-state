@@ -30,7 +30,7 @@ export class NeoComponent implements OnInit {
 
   onSubmitNickname(event: INEO) {
     this.pendingNickname = '';
-    this.data.addNeoNickname$(event).subscribe(
+    this.data.update$(event).subscribe(
       neo => {
         this.pendingNickname = '';
         console.log('Successfully updated nickname!', neo);

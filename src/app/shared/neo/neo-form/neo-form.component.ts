@@ -27,9 +27,10 @@ export class NeoFormComponent implements OnInit {
   }
 
   private setForm() {
-    this.neoForm = Object.assign({}, this.neo, {
-      nickname: this.unsavedNickname || ''
-    });
+    this.neoForm = {
+      ...this.neo,
+      ...{ nickname: this.unsavedNickname || '' }
+    };
   }
 
   onSubmit(input: INEO) {

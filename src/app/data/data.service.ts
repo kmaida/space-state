@@ -20,19 +20,19 @@ export class DataService {
     private utils: UtilsService
   ) { }
 
-  getNEOToday$(): Observable<INEO[]> {
+  init$(): Observable<INEO[]> {
     return this.http.get<INEOAPI>(this.apiNEOUrl).pipe(
       delay(1500), // simulate longer server delay since the NASA API is QUICK
       map(res => this.utils.mapNEOResponse(res)),
       tap(neoList => {
-        this.state.updateNEOList(neoList);
+        this.state.setNeoList(neoList);
         this.loading = false;
       }),
       catchError(err => this.onError(err))
     );
   }
 
-  addNeoNickname$(neo: INEO): Observable<INEO> {
+  update$(neo: INEO): Observable<INEO> {
     // Deferred so that the observable will
     // only be created on subscription
     return defer(() => {
@@ -47,7 +47,7 @@ export class DataService {
           // if (neo.name === '(2018 PV24)' && Math.random() > .5) {
           if (neo.name === '(2018 PV24)') {
             observer.error({
-              message: `Could not update nickname for ${neo.name}.`
+              message: `Could not update ${neo.name}.`
             });
           } else {
             observer.next(neo);
@@ -60,7 +60,11 @@ export class DataService {
     });
   }
 
-  onError(err: any) {
+  getNeo$(id: string): Observable<INEO> {
+    return this.state.getNeo$(id);
+  }
+
+  private onError(err: any) {
     const errorMsg = err.message ? err.message : 'Unable to complete request.';
     this.loading = false;
     this.state.stateError(errorMsg, true);

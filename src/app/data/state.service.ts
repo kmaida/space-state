@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { INEO } from 'src/app/data/data.model';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, of, Observable } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -10,7 +10,6 @@ import { Router, NavigationEnd } from '@angular/router';
 export class StateService {
   private initialState: INEO[] = [];
   private prevState;
-  // TODO: explore removing this.
   private state = this.initialState;
   private neoSubject = new BehaviorSubject(this.initialState);
   private errorSubject = new Subject<string>();
@@ -22,6 +21,7 @@ export class StateService {
   );
 
   constructor(private router: Router) {
+    // Clear any errors on navigation event
     this.router.events.subscribe(
       event => {
         if (event instanceof NavigationEnd) {
@@ -31,7 +31,8 @@ export class StateService {
     );
   }
 
-  updateNEOList(neoList: INEO[]) {
+  setNeoList(neoList: INEO[]) {
+    this.prevState = this.state;
     this.neoSubject.next(neoList);
     this.errorSubject.next(null);
   }
@@ -49,8 +50,13 @@ export class StateService {
     this.errorSubject.next(null);
   }
 
+  getNeo$(id: string): Observable<INEO> {
+    return of(this.neoSubject.getValue().find(
+      (neo) => neo.id === id
+    ));
+  }
+
   stateError(errMsg: string, emitPrevState?: boolean) {
-    // @TODO: replace unsaved state in nickname field
     this.errorSubject.next(errMsg);
     if (emitPrevState) {
       this.neoSubject.next(this.prevState);
