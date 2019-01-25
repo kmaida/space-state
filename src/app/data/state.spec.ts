@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { State } from './state.class';
+import { State } from './state';
 
 describe('State', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

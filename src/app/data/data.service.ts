@@ -4,7 +4,7 @@ import { Observable, throwError, defer } from 'rxjs';
 import { map, tap, catchError, delay } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { INEOAPI, INEO } from './data.model';
-import { State } from './state.class';
+import { State } from './state';
 import { UtilsService } from './utils.service';
 import { Router, NavigationEnd } from '@angular/router';
 
