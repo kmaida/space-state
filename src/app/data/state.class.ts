@@ -36,15 +36,15 @@ export class State {
     this.dismissError();
   }
 
-  dismissError() {
-    this.errorSubject.next(null);
-  }
-
   stateError(errMsg: string, emitPrevState?: boolean) {
     this.errorSubject.next(errMsg);
     if (emitPrevState) {
       this.neoSubject.next(this.prevState);
     }
+  }
+
+  dismissError() {
+    this.errorSubject.next(null);
   }
 
 }
