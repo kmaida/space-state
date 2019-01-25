@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, defer } from 'rxjs';
 import { map, tap, catchError, delay } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { INEOAPI, INEO } from 'src/app/data/data.model';
-import { StateService } from 'src/app/data/state.service';
-import { UtilsService } from 'src/app/data/utils.service';
+import { environment } from './../../environments/environment';
+import { INEOAPI, INEO } from './data.model';
+import { StateService } from './state.service';
+import { UtilsService } from './utils.service';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
@@ -43,14 +43,6 @@ export class DataService extends StateService {
     );
   }
 
-  get getNeoList$(): Observable<INEO[]> {
-    return this.store$;
-  }
-
-  getNeo$(id: string): Observable<INEO> {
-    return this.getNeo$(id);
-  }
-
   update$(neo: INEO): Observable<INEO> {
     // Deferred so that the observable will
     // only be created on subscription
@@ -77,14 +69,6 @@ export class DataService extends StateService {
         catchError(err => this.onError(err))
       );
     });
-  }
-
-  get getErrors$(): Observable<any> {
-    return this.errors$;
-  }
-
-  dismissError() {
-    return this.updateError(null);
   }
 
   private onError(err: any) {

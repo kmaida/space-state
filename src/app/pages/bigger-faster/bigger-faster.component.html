@@ -3,7 +3,7 @@
   with a relative velocity of more than 50,000 miles per hour.</p>
 
 <app-error
-  *ngIf="data.getErrors$ | async as err"
+  *ngIf="data.errors$ | async as err"
   [msg]="err"
   @toast></app-error>
 

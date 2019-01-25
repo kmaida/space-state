@@ -12,7 +12,7 @@ import { list } from 'src/app/shared/animations/list.animation';
   animations: [toast, list]
 })
 export class BiggerFasterComponent implements OnInit {
-  biggerFasterNeo$ = this.data.getNeoList$.pipe(
+  biggerFasterNeo$ = this.data.neoStore$.pipe(
     filter(neoList => !!neoList === true),
     map(neoList => neoList.filter(neo => {
       if (neo.estimated_diameter > 0.5 || neo.relative_velocity > 50000) {

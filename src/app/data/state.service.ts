@@ -1,4 +1,4 @@
-import { INEO } from 'src/app/data/data.model';
+import { INEO } from './data.model';
 import { BehaviorSubject, Subject, of, Observable } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
 
@@ -8,7 +8,7 @@ export class StateService {
   private state = this.initialState;
   private neoSubject = new BehaviorSubject(this.initialState);
   private errorSubject = new Subject<string>();
-  store$ = this.neoSubject.pipe(
+  neoStore$ = this.neoSubject.pipe(
     tap(state => this.state = [...state])
   );
   errors$ = this.errorSubject.pipe(
@@ -20,7 +20,7 @@ export class StateService {
   setNeoList(neoList: INEO[]) {
     this.prevState = this.state;
     this.neoSubject.next(neoList);
-    this.errorSubject.next(null);
+    this.dismissError();
   }
 
   updateNeo(neobj: INEO) {
@@ -33,7 +33,7 @@ export class StateService {
     });
     this.state = newState;
     this.neoSubject.next(this.state);
-    this.errorSubject.next(null);
+    this.dismissError();
   }
 
   getNeo$(id: string): Observable<INEO> {
@@ -42,14 +42,14 @@ export class StateService {
     ));
   }
 
+  dismissError() {
+    this.errorSubject.next(null);
+  }
+
   stateError(errMsg: string, emitPrevState?: boolean) {
-    this.updateError(errMsg);
+    this.errorSubject.next(errMsg);
     if (emitPrevState) {
       this.neoSubject.next(this.prevState);
     }
-  }
-
-  updateError(errMsg: string) {
-    this.errorSubject.next(errMsg);
   }
 }

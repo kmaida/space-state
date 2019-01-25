@@ -12,7 +12,7 @@ import { list } from 'src/app/shared/animations/list.animation';
   animations: [toast, list]
 })
 export class MiniComponent implements OnInit {
-  miniNeo$ = this.data.getNeoList$.pipe(
+  miniNeo$ = this.data.neoStore$.pipe(
     filter(neoList => !!neoList === true),
     map(neoList => neoList.filter(neo => {
       if (neo.estimated_diameter < 0.25) {
