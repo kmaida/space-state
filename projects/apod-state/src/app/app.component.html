@@ -2,10 +2,10 @@
   <h1 class="text-center mt-2">Astronomy Picture of the Day</h1>
 
   <div *ngIf="data.getApod$ | async as apod">
-    <h2 class="text-center">"{{ apod.title }}"</h2>
+    <h2 class="text-center my-4" *ngIf="apod.title"><em>"{{ apod.title }}"</em></h2>
     <div class="imgStars-container">
       <img *ngIf="apod.url" [src]="apod.url" [alt]="apod.title">
-      <div class="stars-container">
+      <div class="stars-container" [hidden]="!apod.url">
         <button class="addStars" #starBtn>
           <span class="emoji-star">⭐️</span>
         </button>

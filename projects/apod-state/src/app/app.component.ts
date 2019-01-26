@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.data.init$().subscribe(
-      apod => this.setupStars()
+      () => this.setupStars()
     );
   }
 
