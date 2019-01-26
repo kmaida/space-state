@@ -1,17 +1,23 @@
 <div class="container">
-  <h1 class="text-center">Astronomy Picture of the Day</h1>
+  <h1 class="text-center mt-2">Astronomy Picture of the Day</h1>
 
   <div *ngIf="data.getApod$ | async as apod">
-    <h2 class="text-center">{{ apod.date | date:'mediumDate' }}</h2>
-    <img *ngIf="apod.url" [src]="apod.url" [alt]="apod.title">
+    <h2 class="text-center">"{{ apod.title }}"</h2>
+    <div class="imgStars-container">
+      <img *ngIf="apod.url" [src]="apod.url" [alt]="apod.title">
+      <div class="stars-container">
+        <button class="addStars" #starBtn>
+          <span class="emoji-star">⭐️</span>
+        </button>
+        <span class="starCount">{{ apod.stars }}</span>
+      </div>
+    </div>
     <p class="lead pt-3">{{ apod.explanation }}</p>
     <p
       *ngIf="apod.copyright"
       class="copyright text-center pt-2">
       &copy; {{ apod.copyright }}
     </p>
-    {{ apod.stars }}
-    <button #starBtn>Star</button>
   </div>
 
   <footer class="text-center py-3">

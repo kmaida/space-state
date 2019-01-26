@@ -10,6 +10,6 @@ export interface IAPOD {
   stars?: number;
 }
 
-export interface ISTATE {
-  [key: string]: any;
+export interface IUPDATE {
+  stars?: number;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IAPOD, ISTATE } from './apod.model';
+import { IAPOD, IUPDATE } from './apod.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
@@ -19,15 +19,15 @@ export class DataService {
 
   init$(): Observable<IAPOD> {
     return this.http.get<IAPOD>(this.apiAPODUrl).pipe(
-      tap(apod => this.state.setApod(apod))
+      tap(apod => this.state.setStore(apod))
     );
   }
 
-  get getApod$(): Observable<ISTATE> {
+  get getApod$(): Observable<IUPDATE> {
     return this.state.apodStore$;
   }
 
-  updateApod(obj: ISTATE) {
-    this.state.updateApod(obj);
+  updateApod(obj: IUPDATE) {
+    this.state.updateStore(obj);
   }
 }

@@ -1,22 +1,44 @@
-footer {
-  color: #add2eb;
-  font-size: .7rem;
-  text-transform: uppercase;
-}
-a {
-  color: #add2eb;
-  transition: color 300ms ease;
-}
-a:hover {
-  color: #fff;
-  text-decoration: none;
-  transition: color 300ms ease;
+.imgStars-container {
+  position: relative;
 }
 img {
   border-radius: 10px;
   box-shadow: 0 0 5px 1px rgba(255,255,255,.5);
   display: block;
   max-width: 100%;
+}
+.stars-container {
+  position: absolute;
+    top: 1rem; left: 1rem;
+}
+.addStars {
+  background-color: #022f50;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 100px;
+  cursor: pointer;
+  height: 36px;
+  padding: 0 0 0 7px;
+  text-align: center;
+  transform: scale(1);
+  width: 36px;
+  transition: transform 100ms ease, background-color 100ms ease;
+}
+.emoji-star {
+  display: inline-block;
+  vertical-align: middle;
+}
+.addStars:focus {
+  outline: 0 none;
+}
+.addStars:active {
+  background-color: #001829;
+  transform: scale(1.2);
+  transition: transform 100ms ease, background-color 100ms ease;
+}
+.starCount {
+  font-size: .85rem;
+  padding-left: .8rem;
+  text-shadow: 0 0 3px rgba(0,0,0,.5);
 }
 .copyright {
   font-size: .85rem;

@@ -26,33 +26,27 @@ body {
   color: #c8f2ff;
   font-weight: bold;
 }
-.card {
-  background: #00648a;
-  border: 1px solid #00c0fb;
-}
 h1 {
   color: #add2eb;
 }
-h2, h3, h4, h5, h6, .card-body strong {
+h2, h3, h4, h5, h6 {
   color: #fff;
-}
-h6.card-title {
-  line-height: 38px;
-}
-.alert {
-  padding: .5rem .75rem;
-}
-.alert-success {
-  background: #183618;
-  border-color: #00fb0c;
-  color: #b8ffc9;
-}
-.alert-danger {
-  background: #5d0505;
-  border-color: #f50000;
-  color: #ffc6c6;
 }
 /* For animation support */
 app-error {
   display: block;
+}
+footer {
+  color: #add2eb;
+  font-size: .7rem;
+  text-transform: uppercase;
+}
+a {
+  color: #add2eb;
+  transition: color 300ms ease;
+}
+a:hover {
+  color: #fff;
+  text-decoration: none;
+  transition: color 300ms ease;
 }
