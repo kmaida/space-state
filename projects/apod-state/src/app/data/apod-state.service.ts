@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IAPOD, ISTATE } from './apod.model';
 import { BehaviorSubject } from 'rxjs';
-import { scan } from 'rxjs/operators';
+import { scan, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,12 @@ export class StateService {
   private apodSubject = new BehaviorSubject(this.initialState);
   apodStore$ = this.apodSubject.pipe(
     scan((acc: IAPOD, newVal: ISTATE) => {
+      console.log(acc, newVal);
       return { ...acc, ...newVal };
-    }, this.initialState)
+    }, this.initialState),
+    tap(
+      val => console.log(val.stars)
+    )
   );
 
   constructor() { }
@@ -21,7 +25,7 @@ export class StateService {
     this.apodSubject.next(apod);
   }
 
-  updateApod(apodObj: IAPOD) {
+  updateApod(apodObj) {
     this.apodSubject.next(apodObj);
   }
 

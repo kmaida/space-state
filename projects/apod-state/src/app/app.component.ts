@@ -10,7 +10,6 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   @ViewChild('starBtn') starBtn;
-  count = 0;
 
   constructor(public data: DataService) { }
 
@@ -21,19 +20,25 @@ export class AppComponent implements OnInit {
   }
 
   setupStars() {
+    const newVal = { stars: 0 };
+    const addStars = () => {
+      newVal.stars++;
+      this.data.updateApod(newVal);
+    };
+    // Click to add a single star
     const click$ = fromEvent(this.starBtn.nativeElement, 'click');
+    click$.subscribe(addStars);
+    // Hold mouse down to add stars continuously until mouse up or leave button
     const mousedown$ = fromEvent(this.starBtn.nativeElement, 'mousedown');
     const mouseup$ = fromEvent(this.starBtn.nativeElement, 'mouseup');
     const mouseleave$ = fromEvent(this.starBtn.nativeElement, 'mouseleave');
-
-    const observer = () => {
-      this.count++;
-    };
-
-    click$.subscribe(observer);
-    const notifier = merge(mouseup$, mouseleave$);
-    const final = mousedown$.pipe(
-      switchMap(e => interval(300).pipe(takeUntil(notifier)))
-    ).subscribe(observer);
+    const hold$ = mousedown$.pipe(
+      switchMap(() => interval(300).pipe(
+        takeUntil(
+          merge(mouseup$, mouseleave$)
+        )
+      ))
+    );
+    hold$.subscribe(addStars);
   }
 }

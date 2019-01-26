@@ -26,4 +26,8 @@ export class DataService {
   get getApod$(): Observable<ISTATE> {
     return this.state.apodStore$;
   }
+
+  updateApod(obj: ISTATE) {
+    this.state.updateApod(obj);
+  }
 }
