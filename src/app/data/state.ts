@@ -6,9 +6,9 @@ export class State {
   private initialState: INEO[] = [];
   private prevState: INEO[];
   private state = this.initialState;
-  private neoSubject = new BehaviorSubject(this.initialState);
+  private neoStoreSubject = new BehaviorSubject(this.initialState);
   private errorSubject = new Subject<string>();
-  neoStore$ = this.neoSubject.pipe(
+  neoStore$ = this.neoStoreSubject.pipe(
     tap(state => this.state = [...state])
   );
   errors$ = this.errorSubject.pipe(
@@ -17,9 +17,9 @@ export class State {
 
   constructor() { }
 
-  setNeoList(neoList: INEO[]) {
+  setNeoStore(neoList: INEO[]) {
     this.prevState = this.state;
-    this.neoSubject.next(neoList);
+    this.neoStoreSubject.next(neoList);
     this.dismissError();
   }
 
@@ -32,14 +32,14 @@ export class State {
       return current;
     });
     this.state = newState;
-    this.neoSubject.next(this.state);
+    this.neoStoreSubject.next(this.state);
     this.dismissError();
   }
 
   stateError(errMsg: string, emitPrevState?: boolean) {
     this.errorSubject.next(errMsg);
     if (emitPrevState) {
-      this.neoSubject.next(this.prevState);
+      this.neoStoreSubject.next(this.prevState);
     }
   }
 

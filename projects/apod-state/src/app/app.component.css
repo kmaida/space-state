@@ -32,7 +32,7 @@ img {
 }
 .addStars:active {
   background-color: #001829;
-  transform: scale(1.2);
+  transform: scale(1.25);
   transition: transform 100ms ease, background-color 100ms ease;
 }
 .addStars:active span {
