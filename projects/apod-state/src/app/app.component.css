@@ -17,11 +17,15 @@ img {
   border-radius: 100px;
   cursor: pointer;
   height: 36px;
-  padding: 0 0 0 6px;
+  padding: 1px 0 0 6px;
   text-align: center;
   transform: scale(1);
   width: 36px;
   transition: transform 100ms ease, background-color 100ms ease;
+}
+.addStars:after {
+  content: '🌟';
+  display: none;
 }
 .addStars:focus {
   outline: 0 none;
@@ -30,6 +34,12 @@ img {
   background-color: #001829;
   transform: scale(1.2);
   transition: transform 100ms ease, background-color 100ms ease;
+}
+.addStars:active span {
+  display: none;
+}
+.addStars:active:after {
+  display: inline-block;
 }
 .starCount {
   font-size: .85rem;

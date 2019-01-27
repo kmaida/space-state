@@ -6,7 +6,7 @@
     <div class="imgStars-container">
       <img *ngIf="apod.url" [src]="apod.url" [alt]="apod.title">
       <div class="stars-container" [hidden]="!apod.url">
-        <button class="addStars" #starBtn>⭐️</button>
+        <button class="addStars" #starBtn><span>⭐️</span></button>
         <span class="starCount">{{ apod.stars }}</span>
       </div>
     </div>

@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     );
   }
 
-  setupStars() {
+  private setupStars() {
     const newVal = { stars: 0 };
     const addStar = () => {
       newVal.stars++;
