@@ -23,10 +23,6 @@ img {
   width: 36px;
   transition: transform 100ms ease, background-color 100ms ease;
 }
-.emoji-star {
-  display: inline-block;
-  vertical-align: middle;
-}
 .addStars:focus {
   outline: 0 none;
 }
