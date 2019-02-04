@@ -28,6 +28,6 @@ export class DataService {
   }
 
   updateApod(obj: IUPDATE) {
-    this.state.updateStore(obj);
+    this.state.setStore(obj);
   }
 }

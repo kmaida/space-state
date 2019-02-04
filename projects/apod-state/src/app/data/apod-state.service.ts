@@ -17,12 +17,8 @@ export class StateService {
 
   constructor() { }
 
-  setStore(apod: IAPOD) {
-    this.apodSubject.next(apod);
-  }
-
-  updateStore(updateObj: IUPDATE) {
-    this.apodSubject.next(updateObj);
+  setStore(obj: IAPOD|IUPDATE) {
+    this.apodSubject.next(obj);
   }
 
 }
