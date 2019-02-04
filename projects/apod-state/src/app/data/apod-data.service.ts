@@ -23,7 +23,7 @@ export class DataService {
     );
   }
 
-  get getApod$(): Observable<IUPDATE> {
+  get getApod$(): Observable<IAPOD> {
     return this.state.apodStore$;
   }
 
