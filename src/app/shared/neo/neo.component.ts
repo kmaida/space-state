@@ -24,7 +24,7 @@ export class NeoComponent implements OnInit {
 
   getHazardText(hazardous: boolean): string {
     return !hazardous ?
-      'No extinction-level event predicted' :
+      'Good news, no extinction-level event predicted' :
       'Call Ben Affleck, it might be ARMAGEDDON!';
   }
 

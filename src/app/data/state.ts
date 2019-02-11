@@ -1,38 +1,38 @@
 import { INEO } from './data.model';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { tap, shareReplay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 export class State {
   private initialState: INEO[] = [];
   private prevState: INEO[];
-  private state = this.initialState;
   private neoStoreSubject = new BehaviorSubject(this.initialState);
   private errorSubject = new Subject<string>();
-  neoStore$ = this.neoStoreSubject.pipe(
-    tap(state => this.state = [...state])
-  );
+  neoStore$ = this.neoStoreSubject.asObservable();
   errors$ = this.errorSubject.pipe(
     shareReplay(1)
   );
 
   constructor() { }
 
+  private setPrevState() {
+    this.prevState = this.neoStoreSubject.getValue();
+  }
+
   setNeoStore(neoList: INEO[]) {
-    this.prevState = this.state;
+    this.setPrevState();
     this.neoStoreSubject.next(neoList);
     this.dismissError();
   }
 
   updateNeo(neobj: INEO) {
-    this.prevState = this.state;
-    const newState = this.state.map((current) => {
+    this.setPrevState();
+    const newState = this.prevState.map((current) => {
       if (current.id === neobj.id) {
         return { ...current, ...neobj };
       }
       return current;
     });
-    this.state = newState;
-    this.neoStoreSubject.next(this.state);
+    this.neoStoreSubject.next(newState);
     this.dismissError();
   }
 
