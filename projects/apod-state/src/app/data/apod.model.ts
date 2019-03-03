@@ -11,5 +11,5 @@ export interface IAPOD {
 }
 
 export interface IUPDATE {
-  stars?: number;
+  stars: number;
 }

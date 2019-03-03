@@ -27,7 +27,7 @@ export class DataService {
     return this.state.apodStore$;
   }
 
-  updateApod(obj: IUPDATE) {
-    this.state.setStore(obj);
+  addStars(starsObj: IUPDATE) {
+    this.state.setStore(starsObj);
   }
 }

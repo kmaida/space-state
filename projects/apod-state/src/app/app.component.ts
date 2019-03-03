@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     const newVal = { stars: 0 };
     const addStar = () => {
       newVal.stars++;
-      this.data.updateApod(newVal);
+      this.data.addStars(newVal);
     };
     // Click to add a single star
     const click$ = fromEvent(this.starBtn.nativeElement, 'click');
