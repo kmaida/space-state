@@ -50,3 +50,6 @@ a:hover {
   text-decoration: none;
   transition: color 300ms ease;
 }
+img {
+  min-width: 100%;
+}

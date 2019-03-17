@@ -8,9 +8,7 @@ export class State {
   private neoStoreSubject = new BehaviorSubject(this.initialState);
   private errorSubject = new Subject<string>();
   neoStore$ = this.neoStoreSubject.asObservable();
-  errors$ = this.errorSubject.pipe(
-    shareReplay(1)
-  );
+  errors$ = this.errorSubject.asObservable();
 
   constructor() { }
 
