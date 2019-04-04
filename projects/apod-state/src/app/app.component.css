@@ -17,7 +17,10 @@ img {
   border-radius: 100px;
   cursor: pointer;
   height: 36px;
-  padding: 1px 0 0 6px;
+  /* Retina MacBook screen padding:
+  padding: 1px 0 0 6px; */
+  /* Standard resolution and 4K padding: */
+  padding: 0px 0 0 2px;
   text-align: center;
   transform: scale(1);
   width: 36px;

@@ -1,6 +1,5 @@
 import { INEO } from './data.model';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
 
 export class State {
   private initialState: INEO[] = [];
