@@ -17,26 +17,39 @@ img {
   border-radius: 100px;
   cursor: pointer;
   height: 36px;
-  /* Retina MacBook screen padding:
-  padding: 1px 0 0 6px; */
-  /* Standard resolution and 4K padding: */
+  line-height: 1;
   padding: 0 0 0 2px;
+  position: absolute;
+    top: 5px; left: 5px;
   text-align: center;
-  transform: scale(1);
   width: 36px;
-  transition: transform 100ms ease, background-color 100ms ease;
+  transition: height 100ms ease, width 100ms ease, padding 100ms ease, background-color 100ms ease, top 100ms ease, left 100ms ease;
 }
 .addStars:after {
   content: '🌟';
   display: none;
+  font-size: 18px;
 }
+/* Retina MBP behaves oddly, so here are some styles for them */
+@media only screen and (-webkit-min-device-pixel-ratio : 1.5), only
+screen and (min-device-pixel-ratio : 1.5) {
+  .addStars {
+    padding: 0 0 0 5px;
+  }
+  .addStars:active {
+    padding: 2px 0 0 4px;
+  }
+}
+/* End rMBP styles */
 .addStars:focus {
   outline: 0 none;
 }
 .addStars:active {
   background-color: #001829;
-  transform: scale(1.25);
-  transition: transform 100ms ease, background-color 100ms ease;
+  height: 46px;
+  top: 0; left: 0;
+  transition: height 100ms ease, width 100ms ease, padding 100ms ease, background-color 100ms ease, top 100ms ease, left 100ms ease;
+  width: 46px;
 }
 .addStars:active span {
   display: none;
@@ -46,7 +59,8 @@ img {
 }
 .starCount {
   font-size: .85rem;
-  padding-left: .8rem;
+  position: absolute;
+    top: 14px; left: 50px;
   text-shadow: 0 0 3px rgba(0,0,0,.5);
 }
 .copyright {
