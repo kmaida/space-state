@@ -66,7 +66,7 @@ export class DataService extends State {
             observer.next(neo);
           }
           observer.complete();
-        }, 1500);
+        }, 2500);
       }).pipe(
         catchError(err => this.onError(err))
       );
