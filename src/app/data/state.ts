@@ -1,15 +1,19 @@
 import { INEO } from './data.model';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 export class State {
-  private initialState: INEO[] = [];
   private prevState: INEO[];
-  private neoStoreSubject = new BehaviorSubject(this.initialState);
-  private errorSubject = new Subject<string>();
-  neoStore$ = this.neoStoreSubject.asObservable();
-  errors$ = this.errorSubject.asObservable();
+  private neoStoreSubject: BehaviorSubject<INEO[]>;
+  private errorSubject: Subject<string>;
+  neoStore$: Observable<INEO[]>;
+  errors$: Observable<string>;
 
-  protected constructor() { }
+  protected constructor() {
+    this.neoStoreSubject = new BehaviorSubject([]);
+    this.errorSubject = new Subject();
+    this.neoStore$ = this.neoStoreSubject.asObservable();
+    this.errors$ = this.errorSubject.asObservable();
+  }
 
   private setPrevState() {
     this.prevState = this.neoStoreSubject.getValue();
