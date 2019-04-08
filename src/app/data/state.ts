@@ -9,7 +9,7 @@ export class State {
   neoStore$ = this.neoStoreSubject.asObservable();
   errors$ = this.errorSubject.asObservable();
 
-  constructor() { }
+  protected constructor() { }
 
   private setPrevState() {
     this.prevState = this.neoStoreSubject.getValue();
