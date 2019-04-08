@@ -76,7 +76,7 @@ export class DataService extends State {
   private onError(err: any) {
     const errorMsg = err.message ? err.message : 'Unable to complete request.';
     this.loading = false;
-    this.stateError(errorMsg, true);
+    this.stateError(errorMsg);
     return throwError(errorMsg);
   }
 }

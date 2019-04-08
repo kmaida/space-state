@@ -37,11 +37,9 @@ export class State {
     this.dismissError();
   }
 
-  stateError(errMsg: string, emitPrevState?: boolean) {
+  stateError(errMsg: string) {
     this.errorSubject.next(errMsg);
-    if (emitPrevState) {
-      this.neoStoreSubject.next(this.prevState);
-    }
+    this.neoStoreSubject.next(this.prevState);
   }
 
   dismissError() {
