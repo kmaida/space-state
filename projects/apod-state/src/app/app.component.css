@@ -30,7 +30,7 @@ img {
   display: none;
   font-size: 18px;
 }
-/* Retina MBP behaves oddly, so here are some styles for them */
+/* Retina MacBook Pros display oddly, so here are some styles to fix that */
 @media only screen and (-webkit-min-device-pixel-ratio : 1.5), only
 screen and (min-device-pixel-ratio : 1.5) {
   .addStars {
