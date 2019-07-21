@@ -56,9 +56,8 @@ export class DataService extends State {
       return new Observable<INEO>(observer => {
         serverDelay = setTimeout(() => {
           clearTimeout(serverDelay);
-          // Force an error for one particular item
-          // if (neo.name === '(2018 PV24)' && Math.random() > .5) {
-          if (neo.name === '(2018 PV24)') {
+          // Force an error for NEOs with a diameter of .05 or less
+          if (neo.estimated_diameter <= .05) {
             observer.error({
               message: `Could not update ${neo.name}.`
             });

@@ -9,7 +9,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  @ViewChild('starBtn') starBtn;
+  @ViewChild('starBtn', { static: false }) starBtn;
 
   constructor(public data: DataService) { }
 
