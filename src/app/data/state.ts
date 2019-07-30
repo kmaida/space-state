@@ -4,13 +4,13 @@ import { Observable, BehaviorSubject, Subject } from 'rxjs';
 export class State {
   private prevState: INEO[];
   private neoStoreSubject: BehaviorSubject<INEO[]>;
-  private errorSubject: Subject<string>;
+  private errorSubject: BehaviorSubject<string>;
   neoStore$: Observable<INEO[]>;
   errors$: Observable<string>;
 
   protected constructor() {
     this.neoStoreSubject = new BehaviorSubject([]);
-    this.errorSubject = new Subject();
+    this.errorSubject = new BehaviorSubject(null);
     this.neoStore$ = this.neoStoreSubject.asObservable();
     this.errors$ = this.errorSubject.asObservable();
   }
