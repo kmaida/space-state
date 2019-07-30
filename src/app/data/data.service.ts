@@ -31,7 +31,7 @@ export class DataService extends State {
     );
   }
 
-  init$(): Observable<INEO[]> {
+  neoData$(): Observable<INEO[]> {
     return this.http.get<INEOAPI>(this.apiNEOUrl).pipe(
       delay(1500), // Simulate longer server delay since the NASA API is QUICK
       map(res => this.utils.mapNEOResponse(res)),

@@ -14,16 +14,16 @@ export class AppComponent implements OnInit {
   constructor(public data: DataService) { }
 
   ngOnInit() {
-    this.data.init$().subscribe(
+    this.data.apodData$().subscribe(
       () => this.setupStars()
     );
   }
 
   private setupStars() {
-    const newVal = { stars: 0 };
+    const counter = { stars: 0 };
     const addStar = () => {
-      newVal.stars++;
-      this.data.addStars(newVal);
+      counter.stars++;
+      this.data.addStars(counter);
     };
     // Click to add a single star
     const click$ = fromEvent(this.starBtn.nativeElement, 'click');

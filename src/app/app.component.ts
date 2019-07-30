@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   constructor(public data: DataService) {}
 
   ngOnInit() {
-    this.data.init$().subscribe();
+    this.data.neoData$().subscribe();
   }
 
 }

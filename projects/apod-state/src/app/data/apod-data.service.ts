@@ -17,7 +17,7 @@ export class DataService {
     private state: StateService
   ) { }
 
-  init$(): Observable<IAPOD> {
+  apodData$(): Observable<IAPOD> {
     return this.http.get<IAPOD>(this.apiAPODUrl).pipe(
       tap(apod => this.state.setStore(apod))
     );
