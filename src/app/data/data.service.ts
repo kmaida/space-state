@@ -25,7 +25,7 @@ export class DataService extends State {
     this.router.events.subscribe(
       event => {
         if (event instanceof NavigationEnd) {
-          this.dismissError();
+          super.dismissError();
         }
       }
     );
@@ -36,7 +36,7 @@ export class DataService extends State {
       delay(1500), // Simulate longer server delay since the NASA API is QUICK
       map(res => this.utils.mapNEOResponse(res)),
       tap(neoList => {
-        this.setNeoStore(neoList);
+        super.setNeoStore(neoList);
         this.loading = false;
       }),
       catchError(err => this.onError(err))
@@ -51,7 +51,7 @@ export class DataService extends State {
       // only be created on subscription
       let serverDelay;
       // Make optimistic UI updates
-      this.updateNeo(neo);
+      super.updateNeo(neo);
       // Return the observable that "interacts with the server"
       return new Observable<INEO>(observer => {
         serverDelay = setTimeout(() => {
@@ -75,7 +75,7 @@ export class DataService extends State {
   private onError(err: any) {
     const errorMsg = err.message ? err.message : 'Unable to complete request.';
     this.loading = false;
-    this.stateError(errorMsg);
+    super.stateError(errorMsg);
     return throwError(errorMsg);
   }
 }
