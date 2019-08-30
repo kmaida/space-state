@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from './data/apod-data.service';
 import { fromEvent, interval, merge } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { IUPDATE } from './data/apod.model';
 
 @Component({
   selector: 'apod-root',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   private setupStars() {
-    const counter = { stars: 0 };
+    const counter: IUPDATE = { stars: 0 };
     const addStar = () => {
       counter.stars++;
       this.data.addStars(counter);

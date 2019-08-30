@@ -1,5 +1,5 @@
 import { INEO } from './data.model';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 export class State {
   private prevState: INEO[];
