@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError, timer } from 'rxjs';
+import { Observable, throwError, timer, defer } from 'rxjs';
 import { map, tap, catchError, delay } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { INEOAPI, INEO } from './data.model';
@@ -46,40 +46,22 @@ export class DataService extends State {
   update$(neo: INEO): Observable<INEO> {
     // This section is fabricated to simulate
     // an interaction with an API
-    return timer(2500).pipe(
-      map(val => {
-        console.log(val, neo);
-        if (neo.estimated_diameter <= .5) {
-          throw new Error(`Could not update ${neo.name}.`);
-        }
-        return neo;
-      }),
-      catchError(err => this.onError(err))
-    );
-    // return defer(() => {
-    //   // Deferred so that the observable will
-    //   // only be created on subscription
-    //   let serverDelay;
-    //   // Make optimistic UI updates
-    //   this.updateNeo(neo);
-    //   // Return the observable that "interacts with the server"
-    //   return new Observable<INEO>(observer => {
-    //     serverDelay = setTimeout(() => {
-    //       clearTimeout(serverDelay);
-    //       // Force an error for NEOs with a diameter of .05 or less
-    //       if (neo.estimated_diameter <= .05) {
-    //         observer.error({
-    //           message: `Could not update ${neo.name}.`
-    //         });
-    //       } else {
-    //         observer.next(neo);
-    //       }
-    //       observer.complete();
-    //     }, 2500);
-    //   }).pipe(
-    //     catchError(err => this.onError(err))
-    //   );
-    // });
+    return defer(() => {
+      // Deferred so that the observable will
+      // only be created on subscription
+      // Make optimistic UI updates
+      this.updateNeo(neo);
+      // Return the observable that "interacts with the server"
+      return timer(2500).pipe(
+        map(val => {
+          if (neo.estimated_diameter <= .5) {
+            throw new Error(`Could not update ${neo.name}.`);
+          }
+          return neo;
+        }),
+        catchError(err => this.onError(err))
+      );
+    });
   }
 
   private onError(err: any) {
