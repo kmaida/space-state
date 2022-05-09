@@ -18,7 +18,7 @@ export class MiniComponent implements OnInit {
       if (neo.estimated_diameter < 0.25) {
         return neo;
       } else {
-        return;
+        return null;
       }
     }))
   );
