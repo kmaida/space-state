@@ -4,6 +4,7 @@ export interface IAPOD {
   explanation: string;
   hdurl: string;
   media_type: string;
+  thumbnail_url?: string;
   service_version: string;
   title: string;
   url: string;

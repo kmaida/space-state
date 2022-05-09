@@ -10,7 +10,7 @@ import { StateService } from './apod-state.service';
   providedIn: 'root'
 })
 export class DataService {
-  private apiAPODUrl = `https://api.nasa.gov/planetary/apod?hd=true&api_key=${environment.nasaApiKey}`;
+  private apiAPODUrl = `https://api.nasa.gov/planetary/apod?hd=true&api_key=${environment.nasaApiKey}&thumbs=true`;
 
   constructor(
     private http: HttpClient,
