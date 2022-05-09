@@ -100,6 +100,105 @@
           }
         }
       }
+    },
+    "apod-state": {
+      "root": "projects/apod-state/",
+      "sourceRoot": "projects/apod-state/src",
+      "projectType": "application",
+      "prefix": "apod",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apod-state",
+            "index": "projects/apod-state/src/index.html",
+            "main": "projects/apod-state/src/main.ts",
+            "polyfills": "projects/apod-state/src/polyfills.ts",
+            "tsConfig": "projects/apod-state/tsconfig.app.json",
+            "assets": [
+              "projects/apod-state/src/favicon.ico",
+              "projects/apod-state/src/assets"
+            ],
+            "styles": [
+              "projects/apod-state/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/apod-state/src/environments/environment.ts",
+                  "with": "projects/apod-state/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "apod-state:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "apod-state:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "apod-state:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/apod-state/src/test.ts",
+            "polyfills": "projects/apod-state/src/polyfills.ts",
+            "tsConfig": "projects/apod-state/tsconfig.spec.json",
+            "karmaConfig": "projects/apod-state/karma.conf.js",
+            "styles": [
+              "projects/apod-state/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/apod-state/src/favicon.ico",
+              "projects/apod-state/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/apod-state/tsconfig.app.json",
+              "projects/apod-state/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "space-state"

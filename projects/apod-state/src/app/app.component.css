@@ -1,0 +1,68 @@
+.imgStars-container {
+  position: relative;
+}
+img {
+  border-radius: 10px;
+  box-shadow: 0 0 5px 1px rgba(255,255,255,.5);
+  display: block;
+  max-width: 100%;
+}
+.stars-container {
+  position: absolute;
+    top: 1rem; left: 1rem;
+}
+.addStars {
+  background-color: #022f50;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 100px;
+  cursor: pointer;
+  height: 36px;
+  line-height: 1;
+  padding: 0 0 0 2px;
+  position: absolute;
+    top: 5px; left: 5px;
+  text-align: center;
+  width: 36px;
+  transition: height 100ms ease, width 100ms ease, padding 100ms ease, background-color 100ms ease, top 100ms ease, left 100ms ease;
+}
+.addStars:after {
+  content: '🌟';
+  display: none;
+  font-size: 18px;
+}
+/* Retina MacBook Pros display oddly, so here are some styles to fix that */
+@media only screen and (-webkit-min-device-pixel-ratio : 1.5), only
+screen and (min-device-pixel-ratio : 1.5) {
+  .addStars {
+    padding: 0 0 0 5px;
+  }
+  .addStars:active {
+    padding: 2px 0 0 4px;
+  }
+}
+/* End rMBP styles */
+.addStars:focus {
+  outline: 0 none;
+}
+.addStars:active {
+  background-color: #001829;
+  height: 46px;
+  top: 0; left: 0;
+  transition: height 100ms ease, width 100ms ease, padding 100ms ease, background-color 100ms ease, top 100ms ease, left 100ms ease;
+  width: 46px;
+}
+.addStars:active span {
+  display: none;
+}
+.addStars:active:after {
+  display: inline-block;
+}
+.starCount {
+  font-size: .85rem;
+  position: absolute;
+    top: 14px; left: 50px;
+  text-shadow: 0 0 3px rgba(0,0,0,.5);
+}
+.copyright {
+  font-size: .85rem;
+}
