@@ -36,7 +36,7 @@ export class NeoComponent implements OnInit {
         console.log('Successfully updated nickname!', neo);
       },
       err => {
-        this.pendingNickname = event.nickname;
+        this.pendingNickname = event.nickname || '';
         console.error(err);
       }
     );

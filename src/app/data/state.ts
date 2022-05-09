@@ -1,16 +1,16 @@
-import { INEO } from './data.model';
+import { INEO, initialNEO } from './data.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 export class State {
   private prevState: INEO[];
-  private neoStoreSubject: BehaviorSubject<INEO[]>;
+  private neoStoreSubject: BehaviorSubject<INEO[] | any>;
   private errorSubject: BehaviorSubject<string>;
   neoStore$: Observable<INEO[]>;
   errors$: Observable<string>;
 
   protected constructor() {
     this.neoStoreSubject = new BehaviorSubject([]);
-    this.errorSubject = new BehaviorSubject(null);
+    this.errorSubject = new BehaviorSubject('');
     this.neoStore$ = this.neoStoreSubject.asObservable();
     this.errors$ = this.errorSubject.asObservable();
   }
@@ -43,7 +43,7 @@ export class State {
   }
 
   dismissError() {
-    this.errorSubject.next(null);
+    this.errorSubject.next('');
   }
 
 }

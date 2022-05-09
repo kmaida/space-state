@@ -43,11 +43,11 @@ export class UtilsService {
 
   // Take API data and produce an array of simplified NEOs
   mapNEOResponse(neoData: INEOAPI): INEO[] {
-    const neoList = neoData.near_earth_objects[this.getNEODate];
-    return neoList.map(neo => this.mapNEObj(neo));
+    const neoList = !!neoData && !!neoData.near_earth_objects ? neoData.near_earth_objects[this.getNEODate] : [];
+    return neoList.map((neo: { [key: string]: any; }) => this.mapNEObj(neo));
   }
 
-  trackByID(index, item) {
+  trackByID(index: number, item: any) {
     return item.id;
   }
 

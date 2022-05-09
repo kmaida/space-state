@@ -17,6 +17,8 @@ export class MiniComponent implements OnInit {
     map(neoList => neoList.filter(neo => {
       if (neo.estimated_diameter < 0.25) {
         return neo;
+      } else {
+        return;
       }
     }))
   );
@@ -29,7 +31,7 @@ export class MiniComponent implements OnInit {
   ngOnInit() {
   }
 
-  trackByID(index, item) {
+  trackByID(index: number, item: { id: any; }) {
     return item.id;
   }
 

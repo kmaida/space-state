@@ -7,7 +7,7 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./error.component.css']
 })
 export class ErrorComponent implements OnInit {
-  @Input() msg: string;
+  @Input() msg!: string;
 
   constructor(public data: DataService) { }
 

@@ -17,10 +17,10 @@ interface INEO {
 const initialNEO: INEO = {
   id: '',
   name: '',
-  estimated_diameter: null,
-  is_potentially_hazardous_asteroid: null,
-  relative_velocity: null,
-  miss_distance: null,
+  estimated_diameter: 0,
+  is_potentially_hazardous_asteroid: false,
+  relative_velocity: 0,
+  miss_distance: 0,
   nickname: ''
 };
 

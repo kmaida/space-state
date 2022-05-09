@@ -17,6 +17,8 @@ export class BiggerFasterComponent implements OnInit {
     map(neoList => neoList.filter(neo => {
       if (neo.estimated_diameter > 0.5 || neo.relative_velocity > 50000) {
         return neo;
+      } else {
+        return;
       }
     }))
   );
